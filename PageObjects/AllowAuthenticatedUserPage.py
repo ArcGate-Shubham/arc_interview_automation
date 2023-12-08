@@ -27,6 +27,9 @@ class AllowAuthenticatedUser:
         self.search_role_for_authenticated_user_section_xpath = 'id_role'
         self.search_button_for_authenticated_user_section_xpath = '//input[@value="Search"]'
         self.display_username_in_this_table_on_td_xpath = 'td'
+        self.display_email_in_this_table_on_td_xpath = 'email_column'
+        self.display_admin_role_in_this_table_on_td_xpath = 'role_column'
+        self.delete_row_in_table_data_xpath = 'Delete'
         
     def click_on_add_user_button(self):
         self.driver.find_element(By.ID, self.click_on_add_user_button_xpath).click()
@@ -53,6 +56,20 @@ class AllowAuthenticatedUser:
         time.sleep(2)
         return username and email and role and status
     
+    def display_validation_message_yes_or_no(self, screenshot):
+        if 'This field is required.' in self.display_validation_message_for_input_type():
+            assert True
+        else:
+            self.driver.save_screenshot(screenshot)
+            assert False
+            
+    def display_arcgate_email_validation_message(self, screenshot):
+        if 'This is not an arcgate email.' in self.display_validation_message_for_parsley_pattern():
+            assert True
+        else:
+            self.driver.save_screenshot(screenshot)
+            assert False
+            
     def click_on_authenticated_user_save_button(self):
         self.driver.find_element(By.ID, self.click_on_allow_authenticated_user_save_button_xpath).click()
         
@@ -90,3 +107,52 @@ class AllowAuthenticatedUser:
     
     def display_no_data_found_validation_in_message(self):
         return self.driver.find_element(By.ID, self.display_meesage_in_notice_id_on_top_xpath).text
+    
+    def display_email_in_table(self):
+        return self.driver.find_element(By.ID, self.display_email_in_this_table_on_td_xpath).text
+    
+    def display_role_for_admin_role_in_table(self):
+        return self.driver.find_element(By.ID, self.display_admin_role_in_this_table_on_td_xpath).text
+    
+    def search_functionality_from_diffrent_types(self, Username, email, role):
+        login = Login(self.driver)
+        login.fill_username_password_input(config.get("crediential","login_username"), config.get("crediential","login_password"))
+        login.click_on_allow_authenticated_user_section()
+        if Username and email:
+            self.driver.find_element(By.ID,self.search_username_for_authenticated_user_section_xpath).send_keys(Username)
+            self.driver.find_element(By.ID,self.search_email_for_authenticated_user_section_xpath).send_keys(email)
+        elif Username and role:
+            self.driver.find_element(By.ID,self.search_username_for_authenticated_user_section_xpath).send_keys(Username)
+            wait = WebDriverWait(self.driver, 10)
+            select = wait.until(EC.presence_of_element_located((By.ID, self.search_role_for_authenticated_user_section_xpath)))
+            select = Select(select)
+            role = select.select_by_visible_text(role)
+        elif email and role:
+            self.driver.find_element(By.ID,self.search_email_for_authenticated_user_section_xpath).send_keys(email)
+            wait = WebDriverWait(self.driver, 10)
+            select = wait.until(EC.presence_of_element_located((By.ID, self.search_role_for_authenticated_user_section_xpath)))
+            select = Select(select)
+            role = select.select_by_visible_text(role)
+        else:
+            self.driver.find_element(By.ID,self.search_username_for_authenticated_user_section_xpath).send_keys(Username)
+            self.driver.find_element(By.ID,self.search_email_for_authenticated_user_section_xpath).send_keys(email)
+            wait = WebDriverWait(self.driver, 10)
+            select = wait.until(EC.presence_of_element_located((By.ID, self.search_role_for_authenticated_user_section_xpath)))
+            select = Select(select)
+            role = select.select_by_visible_text(role)
+            
+        self.driver.find_element(By.XPATH,self.search_button_for_authenticated_user_section_xpath).click()
+        time.sleep(2)
+
+    def delete_any_row_of_authenticated_user_in_table_data(self):
+        login = Login(self.driver)
+        login.fill_username_password_input(config.get("crediential","login_username"), config.get("crediential","login_password"))
+        login.click_on_allow_authenticated_user_section()
+        time.sleep(2)
+        self.driver.find_element(By.ID, self.delete_row_in_table_data_xpath).click()
+        self.driver.switch_to.alert.accept()
+        time.sleep(5)
+        if 'User deleted successfully' in self.display_no_data_found_validation_in_message():
+            assert True
+        else:
+            assert False
