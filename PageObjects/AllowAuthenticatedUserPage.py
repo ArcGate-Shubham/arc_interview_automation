@@ -30,6 +30,11 @@ class AllowAuthenticatedUser:
         self.display_email_in_this_table_on_td_xpath = 'email_column'
         self.display_admin_role_in_this_table_on_td_xpath = 'role_column'
         self.delete_row_in_table_data_xpath = 'Delete'
+        self.table_row_count_xpath = 'tbody tr'
+        self.click_on_edit_button_xpath = 'a.Edit'
+        self.click_on_close_button_based_on_edit_form_xpath = 'close-button'
+        self.click_on_edit_button_and_also_select_role_dropdown_xpath = '//select[@id="userSettingRole"]/option[1]'
+        self.click_on_edit_button_and_also_select_status_dropdown_xpath = '//select[@id="userSettingStatus"]/option[1]'
         
     def click_on_add_user_button(self):
         self.driver.find_element(By.ID, self.click_on_add_user_button_xpath).click()
@@ -143,16 +148,92 @@ class AllowAuthenticatedUser:
             
         self.driver.find_element(By.XPATH,self.search_button_for_authenticated_user_section_xpath).click()
         time.sleep(2)
+        
+    def click_on_delete_button(self):
+        time.sleep(2)
+        self.driver.find_element(By.ID, self.delete_row_in_table_data_xpath).click()
+        time.sleep(2)
 
-    def delete_any_row_of_authenticated_user_in_table_data(self):
+    def delete_any_row_of_authenticated_user_in_table_data(self, screenshot):
         login = Login(self.driver)
         login.fill_username_password_input(config.get("crediential","login_username"), config.get("crediential","login_password"))
         login.click_on_allow_authenticated_user_section()
-        time.sleep(2)
-        self.driver.find_element(By.ID, self.delete_row_in_table_data_xpath).click()
+        self.click_on_delete_button()
         self.driver.switch_to.alert.accept()
         time.sleep(5)
         if 'User deleted successfully' in self.display_no_data_found_validation_in_message():
             assert True
         else:
+            self.driver.save_screenshot(screenshot)
+            assert False
+            
+    def row_count_of_authenticated_user(self):
+        return self.driver.find_elements(By.CSS_SELECTOR, self.table_row_count_xpath)
+            
+    def not_delete_any_row_of_authenticated_user_in_table_data_using_cancel_button(self, screenshot):
+        login = Login(self.driver)
+        login.fill_username_password_input(config.get("crediential","login_username"), config.get("crediential","login_password"))
+        login.click_on_allow_authenticated_user_section()
+        old_row = 0
+        for old_row_data in self.row_count_of_authenticated_user():
+            old_row = old_row + 1
+        self.click_on_delete_button()
+        self.driver.switch_to.alert.dismiss()
+        new_row = 0
+        for new_row_data in self.row_count_of_authenticated_user():
+            new_row = new_row + 1
+        if old_row == new_row:
+            assert True
+        else:
+            self.driver.save_screenshot(screenshot)
+            assert False
+            
+    def click_on_edit_button_on_table(self):
+        self.driver.find_element(By.CSS_SELECTOR, self.click_on_edit_button_xpath).click()
+        
+    def click_of_close_button_for_edit_allow_authentication_form(self):
+        time.sleep(2)
+        return self.driver.find_element(By.ID, self.click_on_close_button_based_on_edit_form_xpath)
+            
+    def click_on_edit_button_and_without_changes_click_on_cancel_button(self):
+        login = Login(self.driver)
+        login.fill_username_password_input(config.get("crediential","login_username"), config.get("crediential","login_password"))
+        login.click_on_allow_authenticated_user_section()
+        self.click_on_edit_button_on_table()
+        self.click_of_close_button_for_edit_allow_authentication_form()
+        time.sleep(2)
+        
+    def username(self):
+        return self.driver.find_element(By.ID, self.fill_input_username_in_authenticated_user_xpath)
+        
+    def email(self):
+        return self.driver.find_element(By.ID, self.fill_input_email_in_authenticated_user_xpath)
+    
+    def role(self):
+        self.driver.find_element(By.XPATH, self.click_on_edit_button_and_also_select_role_dropdown_xpath).click()
+        time.sleep(3)
+        
+    def status(self):
+        self.driver.find_element(By.XPATH, self.click_on_edit_button_and_also_select_status_dropdown_xpath).click()
+        time.sleep(3)
+        
+    def click_on_edit_button_and_update_all_input_type(self):
+        login = Login(self.driver)
+        login.fill_username_password_input(config.get("crediential","login_username"), config.get("crediential","login_password"))
+        login.click_on_allow_authenticated_user_section()
+        self.click_on_edit_button_on_table()
+        time.sleep(2)
+        
+    def click_on_edit_button_then_click_on_save_button(self, screenshot):
+        login = Login(self.driver)
+        login.fill_username_password_input(config.get("crediential","login_username"), config.get("crediential","login_password"))
+        login.click_on_allow_authenticated_user_section()
+        self.click_on_edit_button_on_table()
+        time.sleep(2)
+        self.click_on_authenticated_user_save_button()
+        time.sleep(2)
+        if 'User updated successfully' in self.display_no_data_found_validation_in_message():
+            assert True
+        else:
+            self.driver.save_screenshot(screenshot)
             assert False

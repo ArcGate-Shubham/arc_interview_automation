@@ -3,6 +3,7 @@ import pytest
 import configparser
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
 from Utilities.logger import logclass
 from Utilities.generate_email import generate_email_time_stamp, generate_username_time_stamp
 from PageObjects.LoginPage import Login
@@ -10,12 +11,13 @@ from PageObjects.AllowAuthenticatedUserPage import AllowAuthenticatedUser
 config = configparser.ConfigParser()
 config.read("Utilities/input.properties")
 
+
 @pytest.mark.usefixtures("setup_and_teardown")
 class TestAllowAuthenticatedUser(logclass):
     def test_with_all_correct_input_type_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_with_all_correct_input_type_for_authenticated_user')
-        log.info("Test Case Starting")        
+        log.info("Test Case Starting")
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user(generate_username_time_stamp(),generate_email_time_stamp(),'Admin', 'Active')
         if 'User added successfully' in authenticated_user.display_message_on_top():
@@ -25,11 +27,11 @@ class TestAllowAuthenticatedUser(logclass):
             self.driver.save_screenshot('Screenshots/test_with_all_correct_input_type_for_authenticated_user.png')
             log.critical('Test Case Fail')
             assert False
-            
+
     def test_with_all_same_email_id_fill_input_type_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_with_all_same_email_id_fill_input_type_for_authenticated_user')
-        log.info("Test Case Starting")        
+        log.info("Test Case Starting")
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('vishal','visha@arcgate.com','Admin', 'Active')
         if 'This email id already taken' in authenticated_user.display_message_on_top():
@@ -39,11 +41,11 @@ class TestAllowAuthenticatedUser(logclass):
             self.driver.save_screenshot('Screenshots/test_with_all_same_email_id_fill_input_type_for_authenticated_user.png')
             log.critical('Test Case Fail')
             assert False
-            
+
     def test_with_all_same_username_fill_input_type_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_with_all_same_username_fill_input_type_for_authenticated_user')
-        log.info("Test Case Starting")    
+        log.info("Test Case Starting")
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('vishal','vishala@arcgate.com','Admin', 'Active')
         if 'Username already taken' in authenticated_user.display_message_on_top():
@@ -53,23 +55,23 @@ class TestAllowAuthenticatedUser(logclass):
             self.driver.save_screenshot('Screenshots/test_with_all_same_username_fill_input_type_for_authenticated_user.png')
             log.critical('Test Case Fail')
             assert False
-            
+
     def test_without_username_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_without_username_for_authenticated_user')
-        log.info("Test Case Starting")    
+        log.info("Test Case Starting")
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('','vishala@arcgate.com','Admin', 'Active')
         authenticated_user.display_validation_message_yes_or_no('Screenshots/test_without_username_for_authenticated_user.png')
-            
+
     def test_without_email_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_without_email_for_authenticated_user')
-        log.info("Test Case Starting")    
+        log.info("Test Case Starting")
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('vishal','','Admin', 'Active')
         authenticated_user.display_validation_message_yes_or_no('Screenshots/test_without_email_for_authenticated_user.png')
-            
+
     def test_without_role_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_without_role_for_authenticated_user')
@@ -77,7 +79,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('vishal','vishala@arcgate.com','---------', 'Active')
         authenticated_user.display_validation_message_yes_or_no('Screenshots/test_without_email_for_authenticated_user.png')
-            
+
     def test_without_status_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_without_status_for_authenticated_user')
@@ -85,7 +87,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('vishal','vishala@arcgate.com','Admin', '---------')
         authenticated_user.display_validation_message_yes_or_no('Screenshots/test_without_status_for_authenticated_user.png')
-            
+
     def test_without_username_or_email_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_without_username_or_email_for_authenticated_user')
@@ -93,7 +95,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('','','Admin', 'Active')
         authenticated_user.display_validation_message_yes_or_no('Screenshots/test_without_username_or_email_for_authenticated_user.png')
-            
+
     def test_without_username_or_role_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_without_username_or_role_for_authenticated_user')
@@ -101,7 +103,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('','vishala@arcgate.com','---------', 'Active')
         authenticated_user.display_validation_message_yes_or_no('Screenshots/test_without_username_or_role_for_authenticated_user.png')
-        
+
     def test_without_username_or_status_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_without_username_or_status_for_authenticated_user')
@@ -109,7 +111,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('','vishala@arcgate.com','Admin', '---------')
         authenticated_user.display_validation_message_yes_or_no('Screenshots/test_without_username_or_status_for_authenticated_user.png')
-            
+
     def test_without_email_or_role_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_without_email_or_role_for_authenticated_user')
@@ -125,7 +127,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('vishal','','Admin', '---------')
         authenticated_user.display_validation_message_yes_or_no('Screenshots/test_without_email_or_status_for_authenticated_user.png')
-            
+
     def test_without_role_or_status_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_without_role_or_status_for_authenticated_user')
@@ -141,7 +143,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('vishal','','---------', '---------')
         authenticated_user.display_validation_message_yes_or_no('Screenshots/test_without_email_or_role_or_status_for_authenticated_user.png')
-            
+
     def test_without_username_or_role_or_status_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_without_username_or_role_or_status_for_authenticated_user')
@@ -149,7 +151,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('','vishala@arcgate.com','---------', '---------')
         authenticated_user.display_validation_message_yes_or_no('Screenshots/test_without_username_or_role_or_status_for_authenticated_user.png')
-            
+
     def test_without_username_or_email_or_status_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_without_username_or_email_or_status_for_authenticated_user')
@@ -165,7 +167,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('','','---------', 'Active')
         authenticated_user.display_validation_message_yes_or_no('Screenshots/test_without_username_or_email_or_role_for_authenticated_user.png')
-    
+
     def test_without_username_or_email_or_role_or_status_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_without_username_or_email_or_role_or_status_for_authenticated_user')
@@ -173,7 +175,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('','','---------', '---------')
         authenticated_user.display_validation_message_yes_or_no('Screenshots/test_without_username_or_email_or_role_or_status_for_authenticated_user.png')
-        
+
     def test_with_gmail_domain_email_address_use_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_with_gmail_domain_email_address_use_for_authenticated_user')
@@ -181,7 +183,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('vishal','vishala@gmail.com','Admin', 'Active')
         authenticated_user.display_arcgate_email_validation_message('Screenshots/test_with_gmail_domain_email_address_use_for_authenticated_user.png')
-            
+
     def test_with_hotmail_domain_email_address_use_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_with_hotmail_domain_email_address_use_for_authenticated_user')
@@ -189,7 +191,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('vishal','vishala@hotmail.com','Admin', 'Active')
         authenticated_user.display_arcgate_email_validation_message('Screenshots/test_with_hotmail_domain_email_address_use_for_authenticated_user.png')
-    
+
     def test_with_yahoo_domain_email_address_use_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_with_yahoo_domain_email_address_use_for_authenticated_user')
@@ -197,7 +199,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('vishal','vishala@yahoo.com','Admin', 'Active')
         authenticated_user.display_arcgate_email_validation_message('Screenshots/test_with_yahoo_domain_email_address_use_for_authenticated_user.png')
-    
+
     def test_with_arcgate_domain_but_without_dotcom_email_address_use_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_with_arcgate_domain_but_without_dotcom_email_address_use_for_authenticated_user')
@@ -205,7 +207,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('vishal','vishala@arcgate','Admin', 'Active')
         authenticated_user.display_arcgate_email_validation_message('Screenshots/test_with_arcgate_domain_but_without_dotcom_email_address_use_for_authenticated_user.png')
-    
+
     def test_with_arcgate_domain_but_with_codot_dotin_email_address_use_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_with_arcgate_domain_but_with_codot_dotin_email_address_use_for_authenticated_user')
@@ -213,7 +215,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('vishal','vishala@arcgate.co.in','Admin', 'Active')
         authenticated_user.display_arcgate_email_validation_message('Screenshots/test_with_arcgate_domain_but_with_codot_dotin_email_address_use_for_authenticated_user.png')
-    
+
     def test_without_username_with_gmail_domain_email_address_use_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_without_username_with_gmail_domain_email_address_use_for_authenticated_user')
@@ -221,7 +223,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('','vishala@gmail.com','Admin', 'Active')
         authenticated_user.display_arcgate_email_validation_message('Screenshots/test_without_username_with_gmail_domain_email_address_use_for_authenticated_user.png')
-    
+
     def test_without_role_with_gmail_domain_email_address_use_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_without_role_with_gmail_domain_email_address_use_for_authenticated_user')
@@ -237,7 +239,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('vishal','vishala@gmail.com','Admin', '---------')
         authenticated_user.display_arcgate_email_validation_message('Screenshots/test_without_status_with_gmail_domain_email_address_use_for_authenticated_user.png')
-    
+
     def test_without_username_or_without_role_with_gmail_domain_email_address_use_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_without_username_or_without_role_with_gmail_domain_email_address_use_for_authenticated_user')
@@ -245,7 +247,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('','vishala@gmail.com','---------', 'Active')
         authenticated_user.display_arcgate_email_validation_message('Screenshots/test_without_username_or_without_role_with_gmail_domain_email_address_use_for_authenticated_user.png')
-    
+
     def test_without_username_or_without_status_with_gmail_domain_email_address_use_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_without_username_or_without_status_with_gmail_domain_email_address_use_for_authenticated_user')
@@ -253,7 +255,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('','vishala@gmail.com','Admin', '---------')
         authenticated_user.display_arcgate_email_validation_message('Screenshots/test_without_username_or_without_status_with_gmail_domain_email_address_use_for_authenticated_user.png')
-    
+
     def test_without_role_or_without_status_with_gmail_domain_email_address_use_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_without_role_or_without_status_with_gmail_domain_email_address_use_for_authenticated_user')
@@ -261,7 +263,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('vishal','vishala@gmail.com','---------', '---------')
         authenticated_user.display_arcgate_email_validation_message('Screenshots/test_without_role_or_without_status_with_gmail_domain_email_address_use_for_authenticated_user.png')
-    
+
     def test_without_username_or_without_role_or_without_status_with_gmail_domain_email_address_use_for_authenticated_user(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_without_username_or_without_role_or_without_status_with_gmail_domain_email_address_use_for_authenticated_user')
@@ -269,7 +271,7 @@ class TestAllowAuthenticatedUser(logclass):
         authenticated_user = AllowAuthenticatedUser(self.driver)
         authenticated_user.fill_the_form_allow_authenticated_user('','vishala@gmail.com','---------', '---------')
         authenticated_user.display_arcgate_email_validation_message('Screenshots/test_without_username_or_without_role_or_without_status_with_gmail_domain_email_address_use_for_authenticated_user.png')
-            
+
     def test_search_with_valid_username_in_allow_authenticated_user_section(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_search_with_valid_username_in_allow_authenticated_user_section')
@@ -283,7 +285,7 @@ class TestAllowAuthenticatedUser(logclass):
             self.driver.save_screenshot('Screenshots/test_search_with_valid_username_in_allow_authenticated_user_section.png')
             log.critical('Test Case Fail')
             assert False
-            
+
     def test_search_with_invalid_username_in_allow_authenticated_user_section(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_search_with_invalid_username_in_allow_authenticated_user_section')
@@ -311,7 +313,7 @@ class TestAllowAuthenticatedUser(logclass):
             self.driver.save_screenshot('Screenshots/test_search_with_valid_email_in_allow_authenticated_user_section.png')
             log.critical('Test Case Fail')
             assert False
-            
+
     def test_search_with_invalid_email_in_allow_authenticated_user_section(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_search_with_invalid_email_in_allow_authenticated_user_section')
@@ -325,7 +327,7 @@ class TestAllowAuthenticatedUser(logclass):
             self.driver.save_screenshot('Screenshots/test_search_with_invalid_email_in_allow_authenticated_user_section.png')
             log.critical('Test Case Fail')
             assert False
-            
+
     def test_search_with_valid_role_in_allow_authenticated_user_section(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_search_with_valid_role_in_allow_authenticated_user_section')
@@ -339,7 +341,7 @@ class TestAllowAuthenticatedUser(logclass):
             self.driver.save_screenshot('Screenshots/test_search_with_valid_role_in_allow_authenticated_user_section.png')
             log.critical('Test Case Fail')
             assert False
-    
+
     def test_search_with_invalid_role_in_allow_authenticated_user_section(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_search_with_invalid_role_in_allow_authenticated_user_section')
@@ -353,7 +355,7 @@ class TestAllowAuthenticatedUser(logclass):
             self.driver.save_screenshot('Screenshots/test_search_with_invalid_role_in_allow_authenticated_user_section.png')
             log.critical('Test Case Fail')
             assert False
-    
+
     def test_search_with_valid_username_and_email_in_allow_authenticated_user_section(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_search_with_valid_username_and_email_in_allow_authenticated_user_section')
@@ -367,7 +369,7 @@ class TestAllowAuthenticatedUser(logclass):
             self.driver.save_screenshot('Screenshots/test_search_with_valid_username_and_email_in_allow_authenticated_user_section.png')
             log.critical('Test Case Fail')
             assert False
-    
+
     def test_search_with_valid_username_and_email_in_allow_authenticated_user_section(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_search_with_valid_username_and_email_in_allow_authenticated_user_section')
@@ -381,7 +383,7 @@ class TestAllowAuthenticatedUser(logclass):
             self.driver.save_screenshot('Screenshots/test_search_with_valid_username_and_email_in_allow_authenticated_user_section.png')
             log.critical('Test Case Fail')
             assert False
-            
+
     def test_search_with_valid_username_and_role_in_allow_authenticated_user_section(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_search_with_valid_username_and_role_in_allow_authenticated_user_section')
@@ -395,7 +397,7 @@ class TestAllowAuthenticatedUser(logclass):
             self.driver.save_screenshot('Screenshots/test_search_with_valid_username_and_role_in_allow_authenticated_user_section.png')
             log.critical('Test Case Fail')
             assert False
-            
+
     def test_search_with_valid_username_and_invalid_email_in_allow_authenticated_user_section(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_search_with_valid_username_and_invalid_email_in_allow_authenticated_user_section')
@@ -409,7 +411,7 @@ class TestAllowAuthenticatedUser(logclass):
             self.driver.save_screenshot('Screenshots/test_search_with_valid_username_and_invalid_email_in_allow_authenticated_user_section.png')
             log.critical('Test Case Fail')
             assert False
-            
+
     def test_search_with_valid_username_and_invalid_role_in_allow_authenticated_user_section(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_search_with_valid_username_and_invalid_role_in_allow_authenticated_user_section')
@@ -423,7 +425,7 @@ class TestAllowAuthenticatedUser(logclass):
             self.driver.save_screenshot('Screenshots/test_search_with_valid_username_and_invalid_role_in_allow_authenticated_user_section.png')
             log.critical('Test Case Fail')
             assert False
-    
+
     def test_search_with_valid_email_and_invalid_role_in_allow_authenticated_user_section(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_search_with_valid_email_and_invalid_role_in_allow_authenticated_user_section')
@@ -437,7 +439,7 @@ class TestAllowAuthenticatedUser(logclass):
             self.driver.save_screenshot('Screenshots/test_search_with_valid_email_and_invalid_role_in_allow_authenticated_user_section.png')
             log.critical('Test Case Fail')
             assert False
-            
+
     def test_search_with_invalid_username_and_valid_role_in_allow_authenticated_user_section(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_search_with_invalid_username_and_valid_role_in_allow_authenticated_user_section')
@@ -451,7 +453,7 @@ class TestAllowAuthenticatedUser(logclass):
             self.driver.save_screenshot('Screenshots/test_search_with_invalid_username_and_valid_role_in_allow_authenticated_user_section.png')
             log.critical('Test Case Fail')
             assert False
-    
+
     def test_search_with_valid_username_and_valid_role_and_valid_email_in_allow_authenticated_user_section(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_search_with_valid_username_and_valid_role_and_valid_email_in_allow_authenticated_user_section')
@@ -465,7 +467,7 @@ class TestAllowAuthenticatedUser(logclass):
             self.driver.save_screenshot('Screenshots/test_search_with_valid_username_and_valid_role_and_valid_email_in_allow_authenticated_user_section.png')
             log.critical('Test Case Fail')
             assert False
-    
+
     def test_search_with_invalid_username_and_invalid_role_and_invalid_email_in_allow_authenticated_user_section(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_search_with_invalid_username_and_invalid_role_and_invalid_email_in_allow_authenticated_user_section')
@@ -479,10 +481,199 @@ class TestAllowAuthenticatedUser(logclass):
             self.driver.save_screenshot('Screenshots/test_search_with_invalid_username_and_invalid_role_and_invalid_email_in_allow_authenticated_user_section.png')
             log.critical('Test Case Fail')
             assert False
-            
+
     def test_deleted_row_in_table(self):
         log = self.getthelogs()
         log.info('TEST CASE, test_deleted_row_in_table')
         log.info("Test Case Starting")
         authenticated_user = AllowAuthenticatedUser(self.driver)
-        authenticated_user.delete_any_row_of_authenticated_user_in_table_data()
+        authenticated_user.delete_any_row_of_authenticated_user_in_table_data('Screenshots/test_deleted_row_in_table.png')
+
+    def test_not_deleted_row_in_table(self):
+        log = self.getthelogs()
+        log.info('TEST CASE, test_not_deleted_row_in_table')
+        log.info("Test Case Starting")
+        authenticated_user = AllowAuthenticatedUser(self.driver)
+        authenticated_user.not_delete_any_row_of_authenticated_user_in_table_data_using_cancel_button('Screenshots/test_not_deleted_row_in_table.png')
+        
+    def test_click_on_edit_button(self):
+        log = self.getthelogs()
+        log.info('TEST CASE, test_click_on_edit_button')
+        log.info("Test Case Starting")
+        authenticated_user = AllowAuthenticatedUser(self.driver)
+        authenticated_user.click_on_edit_button_and_without_changes_click_on_cancel_button()
+        
+    def test_click_on_edit_button_then_clear_username_input_and_saved(self):
+        log = self.getthelogs()
+        log.info('TEST CASE, test_click_on_edit_button_then_clear_username_input_and_saved')
+        log.info("Test Case Starting")
+        authenticated_user = AllowAuthenticatedUser(self.driver)
+        authenticated_user.click_on_edit_button_and_update_all_input_type()
+        authenticated_user.username().clear()
+        authenticated_user.click_on_authenticated_user_save_button()
+        authenticated_user.display_validation_message_yes_or_no('Screenshots/test_click_on_edit_button_then_clear_username_input_and_saved.png')
+        
+    def test_click_on_edit_button_then_clear_email_input_and_saved(self):
+        log = self.getthelogs()
+        log.info('TEST CASE, test_click_on_edit_button_then_clear_email_input_and_saved')
+        log.info("Test Case Starting")
+        authenticated_user = AllowAuthenticatedUser(self.driver)
+        authenticated_user.click_on_edit_button_and_update_all_input_type()
+        authenticated_user.email().clear()
+        authenticated_user.click_on_authenticated_user_save_button()
+        authenticated_user.display_validation_message_yes_or_no('Screenshots/test_click_on_edit_button_then_clear_email_input_and_saved.png')
+    
+    def test_click_on_edit_button_then_clear_role_input_and_saved(self):
+        log = self.getthelogs()
+        log.info('TEST CASE, test_click_on_edit_button_then_clear_role_input_and_saved')
+        log.info("Test Case Starting")
+        authenticated_user = AllowAuthenticatedUser(self.driver)
+        authenticated_user.click_on_edit_button_and_update_all_input_type()
+        authenticated_user.role()
+        authenticated_user.click_on_authenticated_user_save_button()
+        authenticated_user.display_validation_message_yes_or_no('Screenshots/test_click_on_edit_button_then_clear_role_input_and_saved.png')
+    
+    def test_click_on_edit_button_then_clear_status_input_and_saved(self):
+        log = self.getthelogs()
+        log.info('TEST CASE, test_click_on_edit_button_then_clear_status_input_and_saved')
+        log.info("Test Case Starting")
+        authenticated_user = AllowAuthenticatedUser(self.driver)
+        authenticated_user.click_on_edit_button_and_update_all_input_type()
+        authenticated_user.status()
+        authenticated_user.click_on_authenticated_user_save_button()
+        authenticated_user.display_validation_message_yes_or_no('Screenshots/test_click_on_edit_button_then_clear_status_input_and_saved.png')
+        
+    def test_click_on_edit_button_then_clear_username_and_email_input_and_saved(self):
+        log = self.getthelogs()
+        log.info('TEST CASE, test_click_on_edit_button_then_clear_username_and_email_input_and_saved')
+        log.info("Test Case Starting")
+        authenticated_user = AllowAuthenticatedUser(self.driver)
+        authenticated_user.click_on_edit_button_and_update_all_input_type()
+        authenticated_user.username().clear()
+        authenticated_user.email().clear()
+        time.sleep(3)
+        authenticated_user.click_on_authenticated_user_save_button()
+        authenticated_user.display_validation_message_yes_or_no('Screenshots/test_click_on_edit_button_then_clear_username_and_email_input_and_saved.png')
+    
+    def test_click_on_edit_button_then_clear_username_and_role_input_and_saved(self):
+        log = self.getthelogs()
+        log.info('TEST CASE, test_click_on_edit_button_then_clear_username_and_role_input_and_saved')
+        log.info("Test Case Starting")
+        authenticated_user = AllowAuthenticatedUser(self.driver)
+        authenticated_user.click_on_edit_button_and_update_all_input_type()
+        authenticated_user.username().clear()
+        authenticated_user.role()
+        authenticated_user.click_on_authenticated_user_save_button()
+        authenticated_user.display_validation_message_yes_or_no('Screenshots/test_click_on_edit_button_then_clear_username_and_role_input_and_saved.png')
+    
+    def test_click_on_edit_button_then_clear_username_and_status_input_and_saved(self):
+        log = self.getthelogs()
+        log.info('TEST CASE, test_click_on_edit_button_then_clear_username_and_status_input_and_saved')
+        log.info("Test Case Starting")
+        authenticated_user = AllowAuthenticatedUser(self.driver)
+        authenticated_user.click_on_edit_button_and_update_all_input_type()
+        authenticated_user.username().clear()
+        authenticated_user.status()
+        authenticated_user.click_on_authenticated_user_save_button()
+        authenticated_user.display_validation_message_yes_or_no('Screenshots/test_click_on_edit_button_then_clear_username_and_status_input_and_saved.png')
+    
+    def test_click_on_edit_button_then_clear_email_and_role_input_and_saved(self):
+        log = self.getthelogs()
+        log.info('TEST CASE, test_click_on_edit_button_then_clear_email_and_role_input_and_saved')
+        log.info("Test Case Starting")
+        authenticated_user = AllowAuthenticatedUser(self.driver)
+        authenticated_user.click_on_edit_button_and_update_all_input_type()
+        authenticated_user.email().clear()
+        authenticated_user.role()
+        authenticated_user.click_on_authenticated_user_save_button()
+        authenticated_user.display_validation_message_yes_or_no('Screenshots/test_click_on_edit_button_then_clear_email_and_role_input_and_saved.png')
+    
+    def test_click_on_edit_button_then_clear_email_and_status_input_and_saved(self):
+        log = self.getthelogs()
+        log.info('TEST CASE, test_click_on_edit_button_then_clear_email_and_status_input_and_saved')
+        log.info("Test Case Starting")
+        authenticated_user = AllowAuthenticatedUser(self.driver)
+        authenticated_user.click_on_edit_button_and_update_all_input_type()
+        authenticated_user.email().clear()
+        authenticated_user.status()
+        authenticated_user.click_on_authenticated_user_save_button()
+        authenticated_user.display_validation_message_yes_or_no('Screenshots/test_click_on_edit_button_then_clear_email_and_status_input_and_saved.png')
+
+    def test_click_on_edit_button_then_clear_role_and_status_input_and_saved(self):
+        log = self.getthelogs()
+        log.info('TEST CASE, test_click_on_edit_button_then_clear_role_and_status_input_and_saved')
+        log.info("Test Case Starting")
+        authenticated_user = AllowAuthenticatedUser(self.driver)
+        authenticated_user.click_on_edit_button_and_update_all_input_type()
+        authenticated_user.role()
+        authenticated_user.status()
+        authenticated_user.click_on_authenticated_user_save_button()
+        authenticated_user.display_validation_message_yes_or_no('Screenshots/test_click_on_edit_button_then_clear_role_and_status_input_and_saved.png')
+    
+    def test_click_on_edit_button_then_clear_username_and_email_and_role_input_and_saved(self):
+        log = self.getthelogs()
+        log.info('TEST CASE, test_click_on_edit_button_then_clear_username_and_email_and_role_input_and_saved')
+        log.info("Test Case Starting")
+        authenticated_user = AllowAuthenticatedUser(self.driver)
+        authenticated_user.click_on_edit_button_and_update_all_input_type()
+        authenticated_user.username().clear()
+        authenticated_user.email().clear()
+        authenticated_user.role()
+        authenticated_user.click_on_authenticated_user_save_button()
+        authenticated_user.display_validation_message_yes_or_no('Screenshots/test_click_on_edit_button_then_clear_username_and_email_and_role_input_and_saved.png')
+    
+    def test_click_on_edit_button_then_clear_username_and_email_and_status_input_and_saved(self):
+        log = self.getthelogs()
+        log.info('TEST CASE, test_click_on_edit_button_then_clear_username_and_email_and_status_input_and_saved')
+        log.info("Test Case Starting")
+        authenticated_user = AllowAuthenticatedUser(self.driver)
+        authenticated_user.click_on_edit_button_and_update_all_input_type()
+        authenticated_user.username().clear()
+        authenticated_user.email().clear()
+        authenticated_user.status()
+        authenticated_user.click_on_authenticated_user_save_button()
+        authenticated_user.display_validation_message_yes_or_no('Screenshots/test_click_on_edit_button_then_clear_username_and_email_and_status_input_and_saved.png')
+    
+    def test_click_on_edit_button_then_clear_username_and_role_and_status_input_and_saved(self):
+        log = self.getthelogs()
+        log.info('TEST CASE, test_click_on_edit_button_then_clear_username_and_role_and_status_input_and_saved')
+        log.info("Test Case Starting")
+        authenticated_user = AllowAuthenticatedUser(self.driver)
+        authenticated_user.click_on_edit_button_and_update_all_input_type()
+        authenticated_user.username().clear()
+        authenticated_user.role()
+        authenticated_user.status()
+        authenticated_user.click_on_authenticated_user_save_button()
+        authenticated_user.display_validation_message_yes_or_no('Screenshots/test_click_on_edit_button_then_clear_username_and_role_and_status_input_and_saved.png')
+    
+    def test_click_on_edit_button_then_clear_email_and_role_and_status_input_and_saved(self):
+        log = self.getthelogs()
+        log.info('TEST CASE, test_click_on_edit_button_then_clear_email_and_role_and_status_input_and_saved')
+        log.info("Test Case Starting")
+        authenticated_user = AllowAuthenticatedUser(self.driver)
+        authenticated_user.click_on_edit_button_and_update_all_input_type()
+        authenticated_user.email().clear()
+        authenticated_user.role()
+        authenticated_user.status()
+        authenticated_user.click_on_authenticated_user_save_button()
+        authenticated_user.display_validation_message_yes_or_no('Screenshots/test_click_on_edit_button_then_clear_email_and_role_and_status_input_and_saved.png')
+    
+    def test_click_on_edit_button_then_clear_username_and_email_and_role_and_status_input_and_saved(self):
+        log = self.getthelogs()
+        log.info('TEST CASE, test_click_on_edit_button_then_clear_username_and_email_and_role_and_status_input_and_saved')
+        log.info("Test Case Starting")
+        authenticated_user = AllowAuthenticatedUser(self.driver)
+        authenticated_user.click_on_edit_button_and_update_all_input_type()
+        authenticated_user.username().clear()
+        authenticated_user.email().clear()
+        authenticated_user.role()
+        authenticated_user.status()
+        authenticated_user.click_on_authenticated_user_save_button()
+        authenticated_user.display_validation_message_yes_or_no('Screenshots/test_click_on_edit_button_then_clear_username_and_email_and_role_and_status_input_and_saved.png')
+        
+    def test_click_on_edit_button_after_that_saved_form(self):
+        log = self.getthelogs()
+        log.info('TEST CASE, test_click_on_edit_button_after_that_saved_form')
+        log.info("Test Case Starting")
+        authenticated_user = AllowAuthenticatedUser(self.driver)
+        authenticated_user.click_on_edit_button_then_click_on_save_button('Screenshots/test_click_on_edit_button_after_that_saved_form.png')
