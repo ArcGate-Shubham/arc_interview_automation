@@ -2,10 +2,6 @@ import time
 import configparser
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver import ActionChains
 from PageObjects.LoginPage import Login
 from Utilities.logger import logclass
 config = configparser.ConfigParser()
@@ -103,9 +99,21 @@ class MultipleImageChoiceQuestion(logclass):
         self.driver.find_element(By.XPATH, self.subject_choosen_xpath).click()
         if optionA: 
             self.input_optionA(optionA)
+        if optionB:
+            self.input_optionB(optionB)
+        if optionC:
+            self.input_optionC(optionC)
+        if optionD:
+            self.input_optionD(optionD)
+        if optionA and optionC:
+            self.input_optionA(optionA)
+            self.input_optionC(optionC)
         if optionA and optionB:
             self.input_optionA(optionA)
             self.input_optionB(optionB)
+        if optionA and optionD:
+            self.input_optionA(optionA)
+            self.input_optionD(optionD)
         if optionA and optionB and optionC:
             self.input_optionA(optionA)
             self.input_optionB(optionB)
