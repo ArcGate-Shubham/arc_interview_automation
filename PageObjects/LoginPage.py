@@ -11,6 +11,8 @@ class Login:
         self.click_on_login_button_xpath = 'login_button'
         self.display_message_xpath = 'notice'
         self.click_text_allow_authenticated_user_xpath = 'Allow Authenticated User'
+        self.click_text_add_subject_xpath = 'Add Subject'
+        self.click_text_multiple_image_choice_question_xpath = 'Multiple Image Choice Question'
         
     def fill_username_password_input(self, Username, Password):
         self.driver.find_element(By.NAME,self.fill_username_input_xpath).send_keys(Username)
@@ -32,3 +34,9 @@ class Login:
     
     def click_on_allow_authenticated_user_section(self):
         self.driver.find_element(By.LINK_TEXT, self.click_text_allow_authenticated_user_xpath).click()
+        
+    def click_on_add_subject_section(self):
+        return self.driver.find_element(By.LINK_TEXT, self.click_text_add_subject_xpath).click()
+    
+    def click_on_multiple_image_choice_question_section(self):
+        return self.driver.find_element(By.LINK_TEXT, self.click_text_multiple_image_choice_question_xpath).click()
