@@ -131,3 +131,71 @@ class TestMultipleImageChoiceQuestion:
         self.log.getthelogs().info('TEST CASE, test_026')
         self.multiple_image_choice_question.add_new_question_with_all_valid_input('', '/home/arcgate/Pictures/Screenshot1.png', '/home/arcgate/Pictures/Screenshot1.png','/home/arcgate/Pictures/Screenshot1.png','/home/arcgate/Pictures/Screenshot1.png', 'add')
         self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_026.png')
+
+    def test_027(self):
+        self.log.getthelogs().info('TEST CASE, test_027')
+        self.multiple_image_choice_question.add_new_question_with_all_valid_input('what is your name', '', '/home/arcgate/Pictures/Screenshot1.png','/home/arcgate/Pictures/Screenshot1.png','/home/arcgate/Pictures/Screenshot1.png', 'add')
+        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_027.png')
+    
+    def test_028(self):
+        self.log.getthelogs().info('TEST CASE, test_028')
+        self.multiple_image_choice_question.add_new_question_with_all_valid_input('what is your name', '/home/arcgate/Pictures/Screenshot1.png', '','/home/arcgate/Pictures/Screenshot1.png','/home/arcgate/Pictures/Screenshot1.png', 'add')
+        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_028.png')
+    
+    def test_029(self):
+        self.log.getthelogs().info('TEST CASE, test_029')
+        self.multiple_image_choice_question.add_new_question_with_all_valid_input('what is your name', '/home/arcgate/Pictures/Screenshot1.png', '/home/arcgate/Pictures/Screenshot1.png','','/home/arcgate/Pictures/Screenshot1.png', 'add')
+        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_029.png')
+        
+    def test_030(self):
+        self.log.getthelogs().info('TEST CASE, test_030')
+        self.multiple_image_choice_question.search_functionality_for_multiple_image_choice_question('what are u doing', '')
+        self.multiple_image_choice_question.search_after_row_count('Screenshots/test_030.png')
+        
+    def test_031(self):
+        self.log.getthelogs().info('TEST CASE, test_031')
+        self.multiple_image_choice_question.search_functionality_for_multiple_image_choice_question('', 'Hindi')
+        self.multiple_image_choice_question.search_after_row_count('Screenshots/test_031.png')
+    
+    def test_032(self):
+        self.log.getthelogs().info('TEST CASE, test_032')
+        self.multiple_image_choice_question.search_functionality_for_multiple_image_choice_question('what are u doing', 'Hindi')
+        self.multiple_image_choice_question.search_after_row_count('Screenshots/test_032.png')
+    
+    def test_033(self):
+        self.log.getthelogs().info('TEST CASE, test_033')
+        self.multiple_image_choice_question.search_functionality_for_multiple_image_choice_question('', '')
+        self.multiple_image_choice_question.search_after_row_count('Screenshots/test_033.png')
+    
+    def test_034(self):
+        self.log.getthelogs().info('TEST CASE, test_034')
+        self.multiple_image_choice_question.search_functionality_for_multiple_image_choice_question('asdfgh', '')
+        self.multiple_image_choice_question.display_success_message_for_multiple_image_choice_question('No data found','Screenshots/test_034.png')
+    
+    def test_035(self):
+        self.log.getthelogs().info('TEST CASE, test_035')
+        self.multiple_image_choice_question.search_functionality_for_multiple_image_choice_question('', 'maths')
+        self.multiple_image_choice_question.display_success_message_for_multiple_image_choice_question('No data found','Screenshots/test_035.png')
+
+    def test_036(self):
+        self.log.getthelogs().info('TEST CASE, test_036')
+        self.multiple_image_choice_question.search_functionality_for_multiple_image_choice_question('what are u doing', 'maths')
+        self.multiple_image_choice_question.display_success_message_for_multiple_image_choice_question('No data found','Screenshots/test_036.png')
+        
+    def test_037(self):
+        self.log.getthelogs().info('TEST CASE, test_037')
+        self.multiple_image_choice_question.search_functionality_for_multiple_image_choice_question('thar', 'Hindi')
+        self.multiple_image_choice_question.display_success_message_for_multiple_image_choice_question('No data found','Screenshots/test_037.png')
+        
+    def test_038(self):
+        self.log.getthelogs().info('TEST CASE, test_038')
+        self.multiple_image_choice_question.search_functionality_for_multiple_image_choice_question('cascsa', 'maths')
+        self.multiple_image_choice_question.display_success_message_for_multiple_image_choice_question('No data found','Screenshots/test_038.png')
+        
+    def test_039(self):
+        self.log.getthelogs().info('TEST CASE, test_039')
+        self.multiple_image_choice_question.delete_row_in_existing_table('','Screenshots/test_039.png' )
+        
+    def test_040(self):
+        self.log.getthelogs().info('TEST CASE, test_040')
+        self.multiple_image_choice_question.delete_row_in_existing_table('accept','Screenshots/test_040.png' )

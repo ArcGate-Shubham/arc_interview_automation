@@ -30,6 +30,7 @@ class MultipleImageChoiceQuestion(logclass):
         self.search_by_question_title_xpath = 'id_question_title'
         self.search_by_subject_xpath = 'id_subject'
         self.click_on_search_button_xpath = '//input[@value="Search"]'
+        self.click_on_delete_button_xpath = 'Delete'
         
     def click_on_add_new_question_button(self):
         time.sleep(1)
@@ -87,6 +88,10 @@ class MultipleImageChoiceQuestion(logclass):
     def click_on_search_button(self):
         time.sleep(2)
         self.driver.find_element(By.XPATH, self.click_on_search_button_xpath).click()
+        
+    def click_on_delete_button(self):
+        time.sleep(2)
+        self.driver.find_element(By.ID, self.click_on_delete_button_xpath).click()
 
     def section_open_of_multiple_image_choice_question_section(self):
         login = Login(self.driver)
@@ -159,3 +164,47 @@ class MultipleImageChoiceQuestion(logclass):
         else:
             self.driver.save_screenshot(screenshot)
             assert False
+
+    def search_functionality_for_multiple_image_choice_question(self, question_title, subject):
+        self.section_open_of_multiple_image_choice_question_section()
+        if question_title:
+            self.search_by_question_title().send_keys(question_title)
+        if subject:
+            wait = WebDriverWait(self.driver, 10)
+            select = wait.until(EC.presence_of_element_located((By.ID, self.search_by_subject_xpath)))
+            select = Select(select)
+            subject = select.select_by_visible_text(subject)
+        self.click_on_search_button()
+        time.sleep(2)
+        return subject
+    
+    def search_after_row_count(self, screenshot):
+        if self.row_count_of_existing_table():
+            assert True
+        else:
+            self.driver.save_screenshot(screenshot)
+            assert False
+            
+    def delete_row_in_existing_table(self, accept, screenshot):
+        self.section_open_of_multiple_image_choice_question_section()
+        old_row = 0
+        for old_row_data in self.row_count_of_existing_table():
+            old_row = old_row + 1
+        self.click_on_delete_button()
+        if accept:
+            self.driver.switch_to.alert.accept()
+            if 'Question deleted successfully' in self.display_success_message():
+                assert True
+            else:
+                self.driver.save_screenshot(screenshot)
+                assert False
+        else:
+            self.driver.switch_to.alert.dismiss()
+            new_row = 0
+            for new_row_data in self.row_count_of_existing_table():
+                new_row = new_row + 1
+            if old_row == new_row:
+                assert True
+            else:
+                self.driver.save_screenshot(screenshot)
+                assert False
