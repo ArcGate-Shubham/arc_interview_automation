@@ -2,6 +2,9 @@ import time
 import configparser
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import Select
 from PageObjects.LoginPage import Login
 from Utilities.logger import logclass
 config = configparser.ConfigParser()
@@ -24,6 +27,9 @@ class MultipleImageChoiceQuestion(logclass):
         self.display_sucess_message_xpath = 'notice'
         self.parsley_required_validation_xpath = 'parsley-required'
         self.display_modal_xpath = 'modal-content'
+        self.search_by_question_title_xpath = 'id_question_title'
+        self.search_by_subject_xpath = 'id_subject'
+        self.click_on_search_button_xpath = '//input[@value="Search"]'
         
     def click_on_add_new_question_button(self):
         time.sleep(1)
@@ -71,6 +77,16 @@ class MultipleImageChoiceQuestion(logclass):
     def display_validation_message(self):
         time.sleep(1)
         return self.driver.find_element(By.CLASS_NAME, self.parsley_required_validation_xpath).text
+    
+    def search_by_question_title(self):
+        return self.driver.find_element(By.ID, self.search_by_question_title_xpath)
+    
+    def search_by_subject(self):
+        return self.driver.find_element(By.ID, self.search_by_subject_xpath)
+    
+    def click_on_search_button(self):
+        time.sleep(2)
+        self.driver.find_element(By.XPATH, self.click_on_search_button_xpath).click()
 
     def section_open_of_multiple_image_choice_question_section(self):
         login = Login(self.driver)
