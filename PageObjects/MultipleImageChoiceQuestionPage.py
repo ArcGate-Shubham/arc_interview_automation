@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from PageObjects.LoginPage import Login
 from Utilities.logger import logclass
+from Utilities.return_message import *
 config = configparser.ConfigParser()
 config.read("Utilities/input.properties")
 
@@ -31,6 +32,8 @@ class MultipleImageChoiceQuestion(logclass):
         self.search_by_subject_xpath = 'id_subject'
         self.click_on_search_button_xpath = '//input[@value="Search"]'
         self.click_on_delete_button_xpath = 'Delete'
+        self.click_on_edit_button_xpath = 'a.Edit'
+        self.get_text_of_question_name_xpath = '//*[@id="demo"]/tr[1]/td[1]'
         
     def click_on_add_new_question_button(self):
         time.sleep(1)
@@ -92,6 +95,14 @@ class MultipleImageChoiceQuestion(logclass):
     def click_on_delete_button(self):
         time.sleep(2)
         self.driver.find_element(By.ID, self.click_on_delete_button_xpath).click()
+        
+    def click_on_edit_button(self):
+        time.sleep(2)
+        self.driver.find_element(By.CSS_SELECTOR,self.click_on_edit_button_xpath).click()
+        
+    def get_text_of_questions(self):
+        time.sleep(2)
+        return self.driver.find_element(By.XPATH, self.get_text_of_question_name_xpath).text
 
     def section_open_of_multiple_image_choice_question_section(self):
         login = Login(self.driver)
@@ -208,3 +219,35 @@ class MultipleImageChoiceQuestion(logclass):
             else:
                 self.driver.save_screenshot(screenshot)
                 assert False
+                
+    def edit_row_in_existing_table(self, close, clear, screenshot):
+        self.section_open_of_multiple_image_choice_question_section()
+        previous_question = self.get_text_of_questions()
+        self.click_on_edit_button()
+        if close:
+            self.click_on_close_button()
+            new_question = self.get_text_of_questions()
+            if previous_question == new_question:
+                assert True
+            else:
+                self.driver.save_screenshot(screenshot)
+                assert False
+        else:
+            if clear:
+                time.sleep(5)
+                self.driver.find_element(By.ID, self.question_title_xpath).clear()
+                self.add_question_button()
+                time.sleep(2)
+                if PARSLEY_REQUIRED in self.display_validation_message():
+                    assert True
+                else:
+                    self.driver.save_screenshot(screenshot)
+                    assert False
+            else:
+                self.add_question_button()
+                if QUESTION_UPDATE in self.display_success_message():
+                    assert True
+                else:
+                    self.driver.save_screenshot(screenshot)
+                    assert False
+

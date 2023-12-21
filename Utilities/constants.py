@@ -1,0 +1,16 @@
+import os
+
+IMAGE = os.getcwd() + '/data/Screenshot1.png'
+QUESTION_MICQ = 'what is your name'
+WRONG_SEARCH = 'asdfgh'
+ADD = 'add'
+BLANK = ''
+SEARCH_QUESTION_MICQ = 'what are u doing'
+HINDI = 'Hindi'
+MATHS = 'maths'
+THAR = 'thar'
+CASCSA = 'cascsa'
+ACCEPT = 'accept'
+TEST_CASE = 'TEST CASE, '
+CLOSE_BUTTON = 'close'
+CLEAR_QUESTION = 'clear'
