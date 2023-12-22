@@ -49,4 +49,3 @@ class MultipleChoiceQuestion:
         self.input_subject(subject)
         self.input_passage(passage)
         time.sleep(2)
- 
