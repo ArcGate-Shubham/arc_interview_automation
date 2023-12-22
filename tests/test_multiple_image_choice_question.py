@@ -204,12 +204,32 @@ class TestMultipleImageChoiceQuestion:
         
     def test_041(self):
         self.log.getthelogs().info('TEST CASE, test_041')
-        self.multiple_image_choice_question.edit_row_in_existing_table(CLOSE_BUTTON,BLANK,'Screenshots/test_041.png')
+        self.multiple_image_choice_question.edit_row_in_existing_table(CLOSE_BUTTON,BLANK,BLANK,'Screenshots/test_041.png')
         
     def test_042(self):
         self.log.getthelogs().info('TEST CASE, test_042')
-        self.multiple_image_choice_question.edit_row_in_existing_table(BLANK,BLANK,'Screenshots/test_042.png')
+        self.multiple_image_choice_question.edit_row_in_existing_table(BLANK,BLANK,BLANK,'Screenshots/test_042.png')
         
     def test_043(self):
         self.log.getthelogs().info('TEST CASE, test_043')
-        self.multiple_image_choice_question.edit_row_in_existing_table(BLANK,CLEAR_QUESTION,'Screenshots/test_043.png')
+        self.multiple_image_choice_question.edit_row_in_existing_table(BLANK,CLEAR_QUESTION,BLANK,'Screenshots/test_043.png')
+    
+    def test_044(self):
+        self.log.getthelogs().info('TEST CASE, test_044')
+        self.multiple_image_choice_question.edit_row_in_existing_table(BLANK,BLANK,CLEAR_SUBJECT,'Screenshots/test_044.png')
+        
+    def test_045(self):
+        self.log.getthelogs().info('TEST CASE, test_045')
+        self.multiple_image_choice_question.edit_row_in_existing_table(BLANK,CLEAR_QUESTION,CLEAR_SUBJECT,'Screenshots/test_045.png')
+        
+    def test_046(self):
+        self.log.getthelogs().info('TEST CASE, test_046')
+        self.multiple_image_choice_question.edit_question_of_existing_table_using_change_question(UPDATED_QUESTION_MICQ, BLANK , 'Screenshots/test_046.png')
+        
+    def test_047(self):
+        self.log.getthelogs().info('TEST CASE, test_047')
+        self.multiple_image_choice_question.edit_question_of_existing_table_using_change_question(BLANK, HINDI , 'Screenshots/test_047.png')
+        
+    def test_048(self):
+        self.log.getthelogs().info('TEST CASE, test_048')
+        self.multiple_image_choice_question.edit_question_of_existing_table_using_change_question(UPDATED_QUESTION_MICQ , HINDI , 'Screenshots/test_048.png')
