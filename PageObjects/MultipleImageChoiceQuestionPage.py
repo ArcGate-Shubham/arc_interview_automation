@@ -34,6 +34,8 @@ class MultipleImageChoiceQuestion(logclass):
         self.click_on_delete_button_xpath = 'Delete'
         self.click_on_edit_button_xpath = 'a.Edit'
         self.get_text_of_question_name_xpath = '//*[@id="demo"]/tr[1]/td[1]'
+        self.click_on_edit_button_and_also_select_subject_dropdown_xpath = '//select[@id="MICQ_subject"]/option[1]'
+        self.updated_subject_input_xpath = '//select[@id="MICQ_subject"]/option[6]'
         
     def click_on_add_new_question_button(self):
         time.sleep(1)
@@ -220,7 +222,7 @@ class MultipleImageChoiceQuestion(logclass):
                 self.driver.save_screenshot(screenshot)
                 assert False
                 
-    def edit_row_in_existing_table(self, close, clear, screenshot):
+    def edit_row_in_existing_table(self, close, clear,clear_subject, screenshot):
         self.section_open_of_multiple_image_choice_question_section()
         previous_question = self.get_text_of_questions()
         self.click_on_edit_button()
@@ -233,9 +235,30 @@ class MultipleImageChoiceQuestion(logclass):
                 self.driver.save_screenshot(screenshot)
                 assert False
         else:
-            if clear:
+            if clear and clear_subject:
                 time.sleep(5)
                 self.driver.find_element(By.ID, self.question_title_xpath).clear()
+                self.driver.find_element(By.XPATH, self.click_on_edit_button_and_also_select_subject_dropdown_xpath).click()
+                self.add_question_button()
+                time.sleep(2)
+                if PARSLEY_REQUIRED in self.display_validation_message():
+                    assert True
+                else:
+                    self.driver.save_screenshot(screenshot)
+                    assert False
+            elif clear:
+                time.sleep(5)
+                self.driver.find_element(By.ID, self.question_title_xpath).clear()
+                self.add_question_button()
+                time.sleep(2)
+                if PARSLEY_REQUIRED in self.display_validation_message():
+                    assert True
+                else:
+                    self.driver.save_screenshot(screenshot)
+                    assert False
+            elif clear_subject:
+                time.sleep(5)
+                self.driver.find_element(By.XPATH, self.click_on_edit_button_and_also_select_subject_dropdown_xpath).click()
                 self.add_question_button()
                 time.sleep(2)
                 if PARSLEY_REQUIRED in self.display_validation_message():
@@ -250,4 +273,23 @@ class MultipleImageChoiceQuestion(logclass):
                 else:
                     self.driver.save_screenshot(screenshot)
                     assert False
-
+                    
+    def edit_question_of_existing_table_using_change_question(self, question_title, subject, screenshot):
+        self.section_open_of_multiple_image_choice_question_section()
+        self.click_on_edit_button()
+        time.sleep(2)
+        if question_title and subject:
+            self.driver.find_element(By.ID, self.question_title_xpath).clear()
+            self.driver.find_element(By.ID, self.question_title_xpath).send_keys(question_title)
+            self.driver.find_element(By.XPATH, self.updated_subject_input_xpath).click()
+        elif question_title:
+            self.driver.find_element(By.ID, self.question_title_xpath).clear()
+            self.driver.find_element(By.ID, self.question_title_xpath).send_keys(question_title)
+        elif subject:
+            self.driver.find_element(By.XPATH, self.updated_subject_input_xpath).click()
+        self.add_question_button()
+        if QUESTION_UPDATE in self.display_success_message():
+            assert True
+        else:
+            self.driver.save_screenshot(screenshot)
+            assert False
