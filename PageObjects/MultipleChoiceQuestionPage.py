@@ -1,6 +1,8 @@
 import time
+import allure
 import configparser
 
+from allure_commons.types import AttachmentType
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -28,7 +30,8 @@ class MultipleChoiceQuestion:
         self.display_message_xpath = 'notice'
         self.row_count_xpath = 'tbody#demo tr'
         self.parsley_required_validation_xpath = 'parsley-required'
-        
+    
+    @allure.step('click on add multiple choice question')    
     def add_multiple_choice_question_button(self):
         time.sleep(2)
         self.driver.find_element(By.ID, self.add_multiple_choice_question_button_xpath).click()
@@ -64,29 +67,36 @@ class MultipleChoiceQuestion:
     def input_optionD(self):
         return self.driver.find_element(By.ID, self.optionD_xpath)
     
+    @allure.step('Fill all detail of multiple choice question form after that click on save button')
     def click_on_save_button(self):
         self.driver.find_element(By.ID, self.save_button_xpath).click()
-        
+    
+    @allure.step('Checked on correct answer check box of muliple choice question options')    
     def click_on_right_answer_button(self):
         self.driver.find_element(By.ID, self.click_on_right_answer_xpath).click()
-        
+    
+    @allure.step('Click on close button')    
     def click_on_close_button(self):
         self.driver.find_element(By.ID, self.cancel_button_xpath).click()
-        
+    
+    @allure.step('Display message of response')    
     def display_message_section(self):
         return self.driver.find_element(By.ID, self.display_message_xpath)
     
+    @allure.step('Row count of multiple choice question')
     def row_count_multiple_choice_question(self):
         return self.driver.find_elements(By.CSS_SELECTOR, self.row_count_xpath)
     
+    @allure.step('Display required validation message')
     def required_validation(self):
         return self.driver.find_element(By.CLASS_NAME, self.parsley_required_validation_xpath)
-
+    
+    @allure.step('Firstly, always run login functionality')
     def section_open_of_multiple_choice_question_section(self):
         login = Login(self.driver)
         login.fill_username_password_input(config.get("crediential","login_username"), config.get("crediential","login_password"))
         login.click_on_multiple_choice_question_section()
-        
+    
     def add_question_multiple_choice_question(self, subject, passage, question_title, optionA, optionB, optionC, optionD, add_question, validation, screenshot):
         self.section_open_of_multiple_choice_question_section()
         previous_row_length = len(self.row_count_multiple_choice_question())
@@ -114,7 +124,7 @@ class MultipleChoiceQuestion:
             if PARSLEY_REQUIRED in self.required_validation().text:
                 assert True
             else:
-                self.driver.save_screenshot(screenshot)
+                allure.attach(self.driver.get_screenshot_as_png(), name=screenshot, attachment_type=AttachmentType.PNG)
                 assert False
         elif add_question:
             self.click_on_save_button()            
@@ -122,7 +132,7 @@ class MultipleChoiceQuestion:
                 WebDriverWait(self.driver, 2).until(EC.text_to_be_present_in_element((By.ID, self.display_message_xpath), QUESTION_ADDED))
                 assert True
             except Exception as e:
-                self.driver.save_screenshot(screenshot)
+                allure.attach(self.driver.get_screenshot_as_png(), name=screenshot, attachment_type=AttachmentType.PNG)
                 assert False
         else:
             self.click_on_close_button()
@@ -130,5 +140,6 @@ class MultipleChoiceQuestion:
             if previous_row_length == new_row_length:
                 assert True
             else:
+                allure.attach(self.driver.get_screenshot_as_png(), name=screenshot, attachment_type=AttachmentType.PNG)
                 self.driver.save_screenshot(screenshot)
                 assert False
