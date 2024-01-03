@@ -17,3 +17,7 @@ def generate_random_string_subject():
     number = 7
     result = ''.join(random.choices(string.ascii_lowercase, k=number))
     return result
+
+def generate_random_dynamic_string(number):
+    result = ''.join(random.choices(string.ascii_lowercase, k=number))
+    return result
