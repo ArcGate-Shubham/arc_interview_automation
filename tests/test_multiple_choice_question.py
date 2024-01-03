@@ -371,3 +371,79 @@ class TestMultipleChoiceQuestion:
     def test_073(self):
         self.log.getthelogs().info('TEST CASE, test_073')
         self.multiple_choice_question.add_question_multiple_choice_question(HINDI, PASSAGE_VALUE, generate_random_string_subject(), OPTION_A, OPTION_B, BLANK, OPTION_D, ADD, VALIDATION, 'Screenshots/test_073.png')
+        
+    @allure.severity(allure.severity_level.MINOR)
+    def test_074(self):
+        self.log.getthelogs().info('TEST CASE, test_074')
+        self.multiple_choice_question.add_question_multiple_choice_question_with_maxlength_validation(HINDI, PASSAGE_VALUE, generate_random_dynamic_string(INVALID_LENGTH_STRING), OPTION_A, OPTION_B, OPTION_C, OPTION_D, ADD, VALIDATION, 'Screenshots/test_074.png')
+    
+    @allure.severity(allure.severity_level.MINOR)
+    def test_075(self):
+        self.log.getthelogs().info('TEST CASE, test_075')
+        self.multiple_choice_question.add_question_multiple_choice_question_with_maxlength_validation(HINDI, PASSAGE_VALUE, generate_random_string_subject(), generate_random_dynamic_string(INVALID_LENGTH_STRING), OPTION_B, OPTION_C, OPTION_D, ADD, VALIDATION, 'Screenshots/test_075.png')
+    
+    @allure.severity(allure.severity_level.MINOR)
+    def test_076(self):
+        self.log.getthelogs().info('TEST CASE, test_076')
+        self.multiple_choice_question.add_question_multiple_choice_question_with_maxlength_validation(HINDI, PASSAGE_VALUE, HINDI, OPTION_A, generate_random_dynamic_string(INVALID_LENGTH_STRING), OPTION_C, OPTION_D, ADD, VALIDATION, 'Screenshots/test_076.png')
+        
+    @allure.severity(allure.severity_level.MINOR)
+    def test_077(self):
+        self.log.getthelogs().info('TEST CASE, test_077')
+        self.multiple_choice_question.add_question_multiple_choice_question_with_maxlength_validation(HINDI, PASSAGE_VALUE, HINDI, OPTION_A, OPTION_B, generate_random_dynamic_string(INVALID_LENGTH_STRING), OPTION_D, ADD, VALIDATION, 'Screenshots/test_077.png')
+        
+    @allure.severity(allure.severity_level.MINOR)
+    def test_078(self):
+        self.log.getthelogs().info('TEST CASE, test_078')
+        self.multiple_choice_question.add_question_multiple_choice_question_with_maxlength_validation(HINDI, PASSAGE_VALUE, HINDI, OPTION_A, OPTION_B, OPTION_C, generate_random_dynamic_string(INVALID_LENGTH_STRING), ADD, VALIDATION, 'Screenshots/test_078.png')
+
+    @allure.severity(allure.severity_level.MINOR)
+    def test_079(self):
+        self.log.getthelogs().info('TEST CASE, test_079')
+        self.multiple_choice_question.delete_row_in_existing_table(ACCEPT, 'Screenshots/test_079.png')
+    
+    @allure.severity(allure.severity_level.MINOR)
+    def test_080(self):
+        self.log.getthelogs().info('TEST CASE, test_080')
+        self.multiple_choice_question.delete_row_in_existing_table(BLANK, 'Screenshots/test_080.png')
+    
+    @allure.severity(allure.severity_level.MINOR)
+    def test_081(self):
+        self.log.getthelogs().info('TEST CASE, test_081')
+        self.multiple_choice_question.search_functionality(QUESTION_MCQ, BLANK)
+        self.multiple_choice_question.row_count_table('Screenshots/test_081.png')
+        
+    @allure.severity(allure.severity_level.MINOR)
+    def test_082(self):
+        self.log.getthelogs().info('TEST CASE, test_082')
+        self.multiple_choice_question.search_functionality(BLANK, HINDI)
+        self.multiple_choice_question.row_count_table('Screenshots/test_082.png')
+        
+    @allure.severity(allure.severity_level.MINOR)
+    def test_083(self):
+        self.log.getthelogs().info('TEST CASE, test_083')
+        self.multiple_choice_question.search_functionality(QUESTION_MCQ, HINDI)
+        self.multiple_choice_question.row_count_table('Screenshots/test_083.png')
+        
+    @allure.severity(allure.severity_level.MINOR)
+    def test_084(self):
+        self.log.getthelogs().info('TEST CASE, test_084')
+        self.multiple_choice_question.search_functionality(QUESTION_MCQD, HINDI)
+        self.multiple_choice_question.no_data_found_validation('Screenshots/test_084.png')
+
+    @allure.severity(allure.severity_level.MINOR)
+    def test_085(self):
+        self.log.getthelogs().info('TEST CASE, test_085')
+        self.multiple_choice_question.search_functionality(QUESTION_MCQ, MATHS)
+        self.multiple_choice_question.no_data_found_validation('Screenshots/test_085.png')
+        
+    @allure.severity(allure.severity_level.MINOR)
+    def test_086(self):
+        self.log.getthelogs().info('TEST CASE, test_086')
+        self.multiple_choice_question.search_functionality(QUESTION_MCQD, MATHS)
+        self.multiple_choice_question.no_data_found_validation('Screenshots/test_086.png')
+        
+    @allure.severity(allure.severity_level.NORMAL)
+    def test_087(self):
+        self.log.getthelogs().info('TEST CASE, test_087')
+        self.multiple_choice_question.edit_row_of_existing_table('Screenshots/test_087.png')
