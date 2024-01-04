@@ -27,3 +27,5 @@ VALIDATION = 'validation'
 DASH_DATA = '---------'
 INVALID_LENGTH_STRING = 520
 QUESTION_MCQD = 'question_mcqd'
+OHMOBGT = 'ohmobgt'
+TIME_DURATION = 5

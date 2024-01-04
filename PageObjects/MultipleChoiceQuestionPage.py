@@ -260,3 +260,18 @@ class MultipleChoiceQuestion:
         else:
             allure.attach(self.driver.get_screenshot_as_png(), name=screenshot, attachment_type=AttachmentType.PNG)
             assert False
+            
+    def same_question_gives_on_presence_on_table(self, subject, passage, question_title, optionA, optionB, optionC, optionD, screenshot):
+        self.section_open_of_multiple_choice_question_section()
+        self.add_multiple_choice_question_button()
+        self.input_subject(subject)
+        self.input_passage(passage)
+        self.input_question_title().send_keys(question_title)
+        self.input_optionA().send_keys(optionA)
+        self.input_optionB().send_keys(optionB)
+        self.input_optionC().send_keys(optionC)
+        self.input_optionD().send_keys(optionD)
+        self.click_on_right_answer_button()
+        self.click_on_save_button()
+        time.sleep(2)
+        assert QUESTION_UNIQUE in self.display_message_section().text, allure.attach(self.driver.get_screenshot_as_png(), name=screenshot, attachment_type=AttachmentType.PNG)
