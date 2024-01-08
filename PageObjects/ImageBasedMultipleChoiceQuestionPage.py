@@ -2,7 +2,6 @@ import time
 import allure
 import configparser
 
-from allure_commons.types import AttachmentType
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -30,6 +29,12 @@ class ImageBasedMultipleChoiceQuestion:
         self.row_count_xpath = 'tbody#demo tr'
         self.close_button_xpath = 'close-dialoge'
         self.parsley_required_xpath = 'parsley-required'
+        self.search_by_question_title_xpath = 'id_question_title'
+        self.search_by_subject_xpath = 'id_subject'
+        self.click_on_search_button_xpath = 'input.btn-primary'
+        self.edit_button_xpath = 'a.Edit'
+        self.delete_button_xpath = 'Delete'
+        self.get_question_text_xpath = 'td h5'
         
     def dynamic_explicit_wait(self, time_duration, element_name, message):
         return WebDriverWait(self.driver, time_duration).until(EC.text_to_be_present_in_element((By.ID, element_name), message))
@@ -89,7 +94,33 @@ class ImageBasedMultipleChoiceQuestion:
     
     def required_validation(self):
         return self.driver.find_element(By.CLASS_NAME, self.parsley_required_xpath)
-        
+    
+    def search_by_question_title(self):
+        return self.driver.find_element(By.ID, self.search_by_question_title_xpath)
+       
+    def search_by_subject(self, subject):
+        wait = WebDriverWait(self.driver, 10)
+        select = wait.until(EC.presence_of_element_located((By.ID, self.search_by_subject_xpath)))
+        select = Select(select)
+        subject = select.select_by_visible_text(subject)
+        return subject
+    
+    @allure.step('Click on search button')
+    def click_on_search_button(self):
+        return self.driver.find_element(By.CSS_SELECTOR, self.click_on_search_button_xpath)
+    
+    @allure.step('Click on edit button')
+    def click_on_edit_button(self):
+        return self.driver.find_element(By.CSS_SELECTOR, self.edit_button_xpath)
+    
+    @allure.step('Click on delete button')
+    def click_on_delete_button(self):
+        return self.driver.find_element(By.ID, self.delete_button_xpath)
+    
+    @allure.step('get text from question')
+    def get_text_of_questions(self):
+        return self.driver.find_element(By.CSS_SELECTOR, self.get_question_text_xpath)
+    
     @allure.step('Firstly, always run login functionality')
     def section_open_of_image_based_multiple_choice_question_section(self):
         login = Login(self.driver)
@@ -110,11 +141,46 @@ class ImageBasedMultipleChoiceQuestion:
         self.input_image_upload().send_keys(image)
         if validation and add_question:
             self.click_on_save_button().click()
-            assert self.dynamic_explicit_wait_without_message(TIME_DURATION, self.parsley_required_xpath).is_displayed(), allure.attach(self.driver.get_screenshot_as_png(), name=SCREENSHOT, attachment_type=AttachmentType.PNG)
+            assert self.dynamic_explicit_wait_without_message(TIME_DURATION, self.parsley_required_xpath).is_displayed()
         elif add_question:
             self.click_on_save_button().click()
-            assert self.dynamic_explicit_wait(TIME_DURATION, self.display_message_xpath, QUESTION_ADDED), allure.attach(self.driver.get_screenshot_as_png(), name=SCREENSHOT, attachment_type=AttachmentType.PNG)
+            assert self.dynamic_explicit_wait(TIME_DURATION, self.display_message_xpath, QUESTION_ADDED)
         else:
             self.click_on_close_button().click()
             new_row_length = len(self.row_count_image_based_multiple_choice_question())
-            assert previous_row_length == new_row_length, allure.attach(self.driver.get_screenshot_as_png(), name=SCREENSHOT, attachment_type=AttachmentType.PNG)
+            assert previous_row_length == new_row_length
+            
+    def search_functionality(self, question_title, subject, validation):
+        self.section_open_of_image_based_multiple_choice_question_section()
+        if question_title and subject:
+            self.search_by_question_title().send_keys(question_title)
+            self.search_by_subject(subject)
+        elif question_title:
+            self.search_by_question_title().send_keys(question_title)
+        elif subject:
+            self.search_by_subject(subject)
+        self.click_on_search_button().click()
+        if validation:
+            assert self.dynamic_explicit_wait(TIME_DURATION, self.display_message_xpath, NO_DATA)
+        else:
+            assert len(self.row_count_image_based_multiple_choice_question()) > ZERO
+            
+    def delete_row_in_table(self, accept):
+        self.section_open_of_image_based_multiple_choice_question_section()
+        old_row = len(self.row_count_image_based_multiple_choice_question())
+        self.click_on_delete_button().click()
+        if accept:
+            self.driver.switch_to.alert.accept()
+            assert self.dynamic_explicit_wait(TIME_DURATION, self.display_message_xpath, QUESTION_DELETED)
+        else:
+            self.driver.switch_to.alert.dismiss()
+            new_row = len(self.row_count_image_based_multiple_choice_question())
+            assert old_row == new_row
+            
+    def edit_row_of_existing_table(self):
+        self.section_open_of_image_based_multiple_choice_question_section()
+        previous_text = self.get_text_of_questions().get_attribute('innerText')
+        self.click_on_edit_button()
+        self.click_on_close_button()
+        new_text = self.get_text_of_questions().get_attribute('innerText')
+        assert previous_text == new_text

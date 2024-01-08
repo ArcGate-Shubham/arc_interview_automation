@@ -1,5 +1,8 @@
 import pytest
 import configparser
+import allure
+
+from allure_commons.types import AttachmentType
 from selenium import webdriver
 from PageObjects.AllowAuthenticatedUserPage import AllowAuthenticatedUser
 from PageObjects.LoginPage import Login
@@ -8,6 +11,7 @@ from PageObjects.MultipleImageChoiceQuestionPage import MultipleImageChoiceQuest
 from PageObjects.MultipleChoiceQuestionPage import MultipleChoiceQuestion
 from PageObjects.ImageBasedMultipleChoiceQuestionPage import ImageBasedMultipleChoiceQuestion
 from Utilities.logger import logclass
+from Utilities.constants import *
 driver = None
 config = configparser.ConfigParser()
 config.read("Utilities/input.properties")
@@ -37,3 +41,11 @@ def setup_and_teardown(request):
     request.cls.login = Login(request.cls.driver)
     yield
     driver.quit()
+
+
+@pytest.hookimpl(hookwrapper=True, tryfirst=True)
+def pytest_runtest_makereport(item):
+    outcome = yield
+    result = outcome.get_result()
+    if result.failed:
+        allure.attach(item.cls.driver.get_screenshot_as_png(), name=SCREENSHOT, attachment_type=AttachmentType.PNG)
