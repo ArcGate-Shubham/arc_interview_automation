@@ -447,3 +447,8 @@ class TestMultipleChoiceQuestion:
     def test_087(self):
         self.log.getthelogs().info('TEST CASE, test_087')
         self.multiple_choice_question.edit_row_of_existing_table('Screenshots/test_087.png')
+        
+    @allure.severity(allure.severity_level.NORMAL)
+    def test_088(self):
+        self.log.getthelogs().info('TEST CASE, test_088')
+        self.multiple_choice_question.same_question_gives_on_presence_on_table(HINDI, PASSAGE_VALUE, OHMOBGT, OPTION_A, OPTION_B, OPTION_C, OPTION_D, 'Screenshots/test_088.png')

@@ -6,6 +6,7 @@ from PageObjects.LoginPage import Login
 from PageObjects.SubjectPage import Subject
 from PageObjects.MultipleImageChoiceQuestionPage import MultipleImageChoiceQuestion
 from PageObjects.MultipleChoiceQuestionPage import MultipleChoiceQuestion
+from PageObjects.ImageBasedMultipleChoiceQuestionPage import ImageBasedMultipleChoiceQuestion
 from Utilities.logger import logclass
 driver = None
 config = configparser.ConfigParser()
@@ -28,6 +29,7 @@ def setup_and_teardown(request):
     driver.get(config.get("Url", "base_url"))
     request.cls.driver = driver
     request.cls.log = logclass(driver)
+    request.cls.image_based_multiple_choice_question = ImageBasedMultipleChoiceQuestion(request.cls.driver)
     request.cls.multiple_choice_question = MultipleChoiceQuestion(request.cls.driver)
     request.cls.multiple_image_choice_question = MultipleImageChoiceQuestion(request.cls.driver)
     request.cls.subject = Subject(request.cls.driver)
