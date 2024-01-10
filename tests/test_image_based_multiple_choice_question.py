@@ -266,3 +266,43 @@ class TestImageBasedMultipleChoiceQuestion:
     def test_052(self):
         self.log.getthelogs().info('TEST CASE, test_052')
         self.image_based_multiple_choice_question.edit_row_of_existing_table()
+    
+    @allure.severity(allure.severity_level.CRITICAL)
+    def test_053(self):
+        self.log.getthelogs().info('TEST CASE, test_053')
+        self.image_based_multiple_choice_question.add_image_based_multiple_choice_question(EXCEL, generate_random_string_subject(), OPTION_A, OPTION_B, OPTION_C, OPTION_D, IMAGE, ADD, BLANK)
+        
+    @allure.severity(allure.severity_level.CRITICAL)
+    def test_054(self):
+        self.log.getthelogs().info('TEST CASE, test_054')
+        self.image_based_multiple_choice_question.add_image_based_multiple_choice_question(TYPING_TEST, generate_random_string_subject(), OPTION_A, OPTION_B, OPTION_C, OPTION_D, IMAGE, ADD, BLANK)
+
+    @allure.severity(allure.severity_level.CRITICAL)
+    def test_055(self):
+        self.log.getthelogs().info('TEST CASE, test_055')
+        self.image_based_multiple_choice_question.add_image_based_multiple_choice_question(HINDI, generate_random_dynamic_string(INVALID_LENGTH_STRING), OPTION_A, OPTION_B, OPTION_C, OPTION_D, IMAGE, ADD, VALIDATION)
+    
+    @allure.severity(allure.severity_level.CRITICAL)
+    def test_056(self):
+        self.log.getthelogs().info('TEST CASE, test_056')
+        self.image_based_multiple_choice_question.add_image_based_multiple_choice_question(HINDI, generate_random_string_subject(), generate_random_dynamic_string(INVALID_LENGTH_STRING), OPTION_B, OPTION_C, OPTION_D, IMAGE, ADD, VALIDATION)
+    
+    @allure.severity(allure.severity_level.CRITICAL)
+    def test_057(self):
+        self.log.getthelogs().info('TEST CASE, test_057')
+        self.image_based_multiple_choice_question.add_image_based_multiple_choice_question(HINDI, generate_random_string_subject(), OPTION_A, generate_random_dynamic_string(INVALID_LENGTH_STRING), OPTION_C, OPTION_D, IMAGE, ADD, VALIDATION)
+    
+    @allure.severity(allure.severity_level.CRITICAL)
+    def test_058(self):
+        self.log.getthelogs().info('TEST CASE, test_058')
+        self.image_based_multiple_choice_question.add_image_based_multiple_choice_question(HINDI, generate_random_string_subject(), OPTION_A, OPTION_B, generate_random_dynamic_string(INVALID_LENGTH_STRING), OPTION_D, IMAGE, ADD, VALIDATION)
+    
+    @allure.severity(allure.severity_level.CRITICAL)
+    def test_059(self):
+        self.log.getthelogs().info('TEST CASE, test_059')
+        self.image_based_multiple_choice_question.add_image_based_multiple_choice_question(HINDI, generate_random_string_subject(), OPTION_A, OPTION_B, OPTION_C, generate_random_dynamic_string(INVALID_LENGTH_STRING), IMAGE, ADD, VALIDATION)
+    
+    @allure.severity(allure.severity_level.CRITICAL)
+    def test_060(self):
+        self.log.getthelogs().info('TEST CASE, test_060')
+        self.image_based_multiple_choice_question.add_image_based_multiple_choice_question(HINDI, generate_random_string_subject(), OPTION_A, OPTION_B, OPTION_C, OPTION_D, OTHER_IMAGE, ADD, VALIDATION)
