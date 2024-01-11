@@ -15,6 +15,7 @@ class Login:
         self.click_text_multiple_image_choice_question_xpath = 'Multiple Image Choice Question'
         self.click_text_multiple_choice_question_xpath = 'Multiple Choice Question'
         self.click_text_image_based_multiple_choice_question_xpath = 'Image Based Multiple Choice Questions'
+        self.click_text_subjective_question_xpath = 'Subjective Questions'
         
     def fill_username_password_input(self, Username, Password):
         self.driver.find_element(By.NAME,self.fill_username_input_xpath).send_keys(Username)
@@ -48,3 +49,6 @@ class Login:
 
     def click_on_image_based_multiple_choice_question_section(self):
         return self.driver.find_element(By.LINK_TEXT, self.click_text_image_based_multiple_choice_question_xpath).click()
+    
+    def click_on_subjective_question_section(self):
+        return self.driver.find_element(By.LINK_TEXT, self.click_text_subjective_question_xpath).click()

@@ -30,3 +30,7 @@ QUESTION_MCQD = 'question_mcqd'
 OHMOBGT = 'ohmobgt'
 TIME_DURATION = 5
 ZERO = 0
+EXCEL = 'Excel'
+TYPING_TEST = 'Typing Test'
+LENGTH = 520
+OTHER_IMAGE = os.getcwd() + '/data/Screenshot2.png'

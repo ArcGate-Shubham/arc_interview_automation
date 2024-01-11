@@ -35,6 +35,8 @@ class ImageBasedMultipleChoiceQuestion:
         self.edit_button_xpath = 'a.Edit'
         self.delete_button_xpath = 'Delete'
         self.get_question_text_xpath = 'td h5'
+        self.parsley_maxlength_xpath = 'parsley-maxlength'
+        self.parsley_maxfilesize_xpath = 'parsley-maxFileSize'
         
     def dynamic_explicit_wait(self, time_duration, element_name, message):
         return WebDriverWait(self.driver, time_duration).until(EC.text_to_be_present_in_element((By.ID, element_name), message))
@@ -141,10 +143,21 @@ class ImageBasedMultipleChoiceQuestion:
         self.input_image_upload().send_keys(image)
         if validation and add_question:
             self.click_on_save_button().click()
-            assert self.dynamic_explicit_wait_without_message(TIME_DURATION, self.parsley_required_xpath).is_displayed()
+            if len(question_title) == LENGTH or len(optionA) == LENGTH or len(optionB) == LENGTH or len(optionC) == LENGTH or len(optionD) == LENGTH:
+                assert self.dynamic_explicit_wait_without_message(TIME_DURATION, self.parsley_maxlength_xpath).is_displayed()
+            else:
+                if image == OTHER_IMAGE:
+                    assert self.dynamic_explicit_wait_without_message(TIME_DURATION, self.parsley_maxfilesize_xpath).is_displayed()
+                else:
+                    assert self.dynamic_explicit_wait_without_message(TIME_DURATION, self.parsley_required_xpath).is_displayed()
         elif add_question:
             self.click_on_save_button().click()
-            assert self.dynamic_explicit_wait(TIME_DURATION, self.display_message_xpath, QUESTION_ADDED)
+            if EXCEL in subject:
+                assert self.dynamic_explicit_wait(TIME_DURATION, self.display_message_xpath, EXCEL_VALIDATION)
+            elif TYPING_TEST in subject:
+                assert self.dynamic_explicit_wait(TIME_DURATION, self.display_message_xpath, TYPING_VALIDATION)
+            else:
+                assert self.dynamic_explicit_wait(TIME_DURATION, self.display_message_xpath, QUESTION_ADDED)
         else:
             self.click_on_close_button().click()
             new_row_length = len(self.row_count_image_based_multiple_choice_question())
