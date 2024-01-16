@@ -34,3 +34,4 @@ EXCEL = 'Excel'
 TYPING_TEST = 'Typing Test'
 LENGTH = 520
 OTHER_IMAGE = os.getcwd() + '/data/Screenshot2.png'
+ANOTHER_IMAGE = os.getcwd() + '/data/Screenshot3.gif'
