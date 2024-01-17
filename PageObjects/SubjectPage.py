@@ -2,22 +2,20 @@ import time
 import configparser
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import Select
 from PageObjects.LoginPage import Login
+from PageObjects.locators import *
 config = configparser.ConfigParser()
 config.read("Utilities/input.properties")
 
 class Subject:
     def __init__(self, driver):
         self.driver = driver
-        self.click_on_add_new_subject_button_xpath = 'addButton'
-        self.add_new_subject_input_type_xpath = 'subject'
-        self.new_subject_add_save_button_xpath = 'save-button'
-        self.display_message_xpath = 'notice'
-        self.display_error_message_on_modal_xpath = 'parsley-required'
-        self.display_error_message_for_pattern_xpath = 'parsley-pattern'
+        # self.click_on_add_new_subject_button_xpath = 'addButton'
+        # self.add_new_subject_input_type_xpath = 'subject'
+        # self.new_subject_add_save_button_xpath = 'save-button'
+        # self.display_message_xpath = 'notice'
+        # self.display_error_message_on_modal_xpath = 'parsley-required'
+        # self.display_error_message_for_pattern_xpath = 'parsley-pattern'
         self.total_row_count_of_table_xpath = 'tbody tr'
         self.click_on_cancel_button_xpath = 'close-button'
         self.click_on_delete_button_xpath = 'Delete'
@@ -25,24 +23,24 @@ class Subject:
         self.get_text_on_table_of_subject_xpath = '//*[@id="demo"]/tr[1]/td[1]'
         
     def click_on_add_new_subject_button(self):
-        self.driver.find_element(By.ID, self.click_on_add_new_subject_button_xpath).click()
+        self.driver.find_element(*Locators.ADD_NEW_QUESTION_BUTTON).click()
         
     def add_new_subject_input_type(self,subject_data):
         time.sleep(2)
-        self.driver.find_element(By.NAME, self.add_new_subject_input_type_xpath).send_keys(subject_data)
+        self.driver.find_element(*SubjectPageLocators.INPUT_SUBJECT).send_keys(subject_data)
         
     def new_subject_add_save_button(self):
         time.sleep(1)
-        self.driver.find_element(By.ID, self.new_subject_add_save_button_xpath).click()
+        self.driver.find_element(*Locators.SAVE_BUTTON).click()
         
     def display_message_respect_of_subject(self):
-        return self.driver.find_element(By.ID, self.display_message_xpath).text
+        return self.driver.find_element(*Locators.DISPLAY_MESSAGE).text
     
     def display_error_message_respect_of_subject(self):
-        return self.driver.find_element(By.CLASS_NAME, self.display_error_message_on_modal_xpath).text
+        return self.driver.find_element(*Locators.PARSLEY_REQUIRED).text
     
     def display_error_message_respect_of_parsley_pattern(self):
-        return self.driver.find_element(By.CLASS_NAME, self.display_error_message_for_pattern_xpath).text
+        return self.driver.find_element(*Locators.PARSLEY_PATTERN).text
     
     def row_count_of_subject_table(self):
         return self.driver.find_elements(By.CSS_SELECTOR, self.total_row_count_of_table_xpath)
@@ -127,10 +125,10 @@ class Subject:
         self.click_on_edit_button()
         time.sleep(2)
         if subject_data:
-            self.driver.find_element(By.NAME, self.add_new_subject_input_type_xpath).clear()
+            self.driver.find_element(*SubjectPageLocators.INPUT_SUBJECT).clear()
             self.add_new_subject_input_type(subject_data)
         else:
-            self.driver.find_element(By.NAME, self.add_new_subject_input_type_xpath).clear()
+            self.driver.find_element(*SubjectPageLocators.INPUT_SUBJECT).clear()
         self.new_subject_add_save_button()
 
     def validation_message_for_subject(self, screenshot):

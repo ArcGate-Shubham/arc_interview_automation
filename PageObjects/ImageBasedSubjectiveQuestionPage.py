@@ -35,7 +35,7 @@ class ImageBasedSubjectiveQuestion:
     
     @allure.step('Fill image input type')
     def input_image_upload(self):
-        return self.driver.find_element(*Locators.iNPUT_IMAGE)
+        return self.driver.find_element(*Locators.INPUT_IMAGE)
     
     @allure.step('Click on save button')
     def click_on_save_button(self):
