@@ -11,6 +11,7 @@ from PageObjects.MultipleImageChoiceQuestionPage import MultipleImageChoiceQuest
 from PageObjects.MultipleChoiceQuestionPage import MultipleChoiceQuestion
 from PageObjects.ImageBasedMultipleChoiceQuestionPage import ImageBasedMultipleChoiceQuestion
 from PageObjects.SubjectiveQuestionPage import SubjectiveQuestion
+from PageObjects.ImageBasedSubjectiveQuestionPage import ImageBasedSubjectiveQuestion
 from Utilities.logger import logclass
 from Utilities.constants import *
 from Utilities.generate_email import *
@@ -35,6 +36,7 @@ def setup_and_teardown(request):
     driver.get(config.get("Url", "base_url"))
     request.cls.driver = driver
     request.cls.log = logclass(driver)
+    request.cls.image_based_subjective_question = ImageBasedSubjectiveQuestion(request.cls.driver)
     request.cls.subjective_question = SubjectiveQuestion(request.cls.driver)
     request.cls.image_based_multiple_choice_question = ImageBasedMultipleChoiceQuestion(request.cls.driver)
     request.cls.multiple_choice_question = MultipleChoiceQuestion(request.cls.driver)

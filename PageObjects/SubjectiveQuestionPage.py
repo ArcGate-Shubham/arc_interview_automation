@@ -31,7 +31,8 @@ class SubjectiveQuestion:
         self.search_by_subject_xpath = 'id_question_id'
         self.search_button_xpath = '//button[@value="Search"]'
         self.delete_button_xpath = 'Delete'
-        self.get_question_text_xpath = 'td h5'
+        self.get_question_text_xpath = 'td.EditData'
+        self.edit_button_xpath = 'span.editButton'
         
     def dynamic_explicit_wait(self, time_duration, by, element_name, message):
         return WebDriverWait(self.driver, time_duration).until(EC.text_to_be_present_in_element((by, element_name), message))
@@ -88,8 +89,13 @@ class SubjectiveQuestion:
     def click_on_delete_button(self):
         return self.driver.find_element(By.ID, self.delete_button_xpath)
     
+    @allure.step('Click on edit button')
+    def click_on_edit_button(self):
+        return self.driver.find_element(By.CSS_SELECTOR, self.edit_button_xpath)
+    
+    @allure.step('get question text from existing table')
     def get_text_existing_question(self):
-        return self.driver.find_element(By.CSS_SELECTOR)
+        return self.driver.find_element(By.CSS_SELECTOR, self.get_question_text_xpath)
         
     @allure.step('Firstly, always run login functionality')
     def section_open_of_subjective_question_section(self):
@@ -153,3 +159,11 @@ class SubjectiveQuestion:
             self.driver.switch_to.alert.dismiss()
             new_row = len(self.row_count_subjective_question())
             assert old_row == new_row
+            
+    def edit_row_of_existing_table(self):
+        self.section_open_of_subjective_question_section()
+        previous_text = self.get_text_existing_question().get_attribute('innerText')
+        self.click_on_edit_button()
+        self.click_on_close_button()
+        new_text = self.get_text_existing_question().get_attribute('innerText')
+        assert previous_text == new_text

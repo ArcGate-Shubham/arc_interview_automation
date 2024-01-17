@@ -231,3 +231,8 @@ class TestSubjectiveQuestion:
     def test_043(self):
         self.log.getthelogs().info('TEST CASE, test_043')
         self.subjective_question.delete_row_in_table(BLANK)
+        
+    @allure.severity(allure.severity_level.NORMAL)
+    def test_044(self):
+        self.log.getthelogs().info('TEST CASE, test_044')
+        self.subjective_question.edit_row_of_existing_table()
