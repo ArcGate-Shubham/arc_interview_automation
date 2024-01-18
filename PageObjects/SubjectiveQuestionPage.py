@@ -7,6 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from PageObjects.LoginPage import Login
+from PageObjects.locators import *
 from Utilities.return_message import *
 from Utilities.constants import *
 config = configparser.ConfigParser()
@@ -15,24 +16,6 @@ config.read("Utilities/input.properties")
 class SubjectiveQuestion:
     def __init__(self, driver):
         self.driver = driver
-        self.add_question_button_xpath = 'addButton'
-        self.input_subject_xpath = 'id_subjects'
-        self.input_passage_xpath = 'id_passage'
-        self.input_question_title_xpath = 'id_question_title'
-        self.input_answer_key_xpath = 'id_answer_key'
-        self.input_instruction_xpath ='id_instructions'
-        self.save_button_xpath = 'add_question_btn'
-        self.display_message_xpath = 'notice'
-        self.parsley_required_xpath = 'parsley-required'
-        self.row_count_xpath = 'tbody#demo tr'
-        self.close_button_xpath = 'close-dialoge'
-        self.parsley_maxlength_xpath = 'parsley-maxlength'
-        self.search_by_question_xpath = 'searchquestion'
-        self.search_by_subject_xpath = 'id_question_id'
-        self.search_button_xpath = '//button[@value="Search"]'
-        self.delete_button_xpath = 'Delete'
-        self.get_question_text_xpath = 'td.EditData'
-        self.edit_button_xpath = 'span.editButton'
         
     def dynamic_explicit_wait(self, time_duration, by, element_name, message):
         return WebDriverWait(self.driver, time_duration).until(EC.text_to_be_present_in_element((by, element_name), message))
@@ -49,53 +32,53 @@ class SubjectiveQuestion:
     
     @allure.step('Click on new question button')    
     def click_on_add_question_button(self):
-        self.driver.find_element(By.ID, self.add_question_button_xpath).click()
+        self.driver.find_element(*Locators.ADD_NEW_QUESTION_BUTTON).click()
         time.sleep(2)
         
     def input_question_title(self):
-        return self.driver.find_element(By.ID, self.input_question_title_xpath)
+        return self.driver.find_element(*SubjectiveQuestionPageLocators.INPUT_QUESTION_TITLE)
     
     def input_answer_keys(self):
-        return self.driver.find_element(By.ID, self.input_answer_key_xpath)
+        return self.driver.find_element(*SubjectiveQuestionPageLocators.INPUT_ANSWER_KEY)
     
     def input_instructions(self):
-        return self.driver.find_element(By.ID, self.input_instruction_xpath)
+        return self.driver.find_element(*SubjectiveQuestionPageLocators.INPUT_INSTRUCTION)
     
     @allure.step('Click on save button')
     def click_on_save_button(self):
-        return self.driver.find_element(By.ID, self.save_button_xpath)
+        return self.driver.find_element(*SubjectiveQuestionPageLocators.SAVE_BUTTON)
     
     @allure.step('Click on close button')
     def click_on_close_button(self):
-        return self.driver.find_element(By.ID, self.close_button_xpath)
+        return self.driver.find_element(*SubjectiveQuestionPageLocators.CLOSE_BUTTON)
     
     @allure.step('Row count of subjective question table')
     def row_count_subjective_question(self):
-        return self.driver.find_elements(By.CSS_SELECTOR, self.row_count_xpath)
+        return self.driver.find_elements(*Locators.TABLE_ROW_COUNT)
     
     @allure.step('Search by question_title')
     def search_by_question_title(self):
-        return self.driver.find_element(By.ID, self.search_by_question_xpath)
+        return self.driver.find_element(*SubjectiveQuestionPageLocators.SEARCH_BY_QUESTION)
     
     @allure.step('Search by subject')
     def search_by_subject(self):
-        return self.driver.find_element(By.ID, self.search_by_subject_xpath)
+        return self.driver.find_element(*SubjectiveQuestionPageLocators.SEARCH_BY_SUBJECT)
     
     @allure.step('Click on search button')
     def click_on_search_button(self):
-        return self.driver.find_element(By.XPATH,self.search_button_xpath)
+        return self.driver.find_element(*SubjectiveQuestionPageLocators.SEARCH_BUTTON)
     
     @allure.step('Click on delete button')
     def click_on_delete_button(self):
-        return self.driver.find_element(By.ID, self.delete_button_xpath)
+        return self.driver.find_element(*Locators.DELETE_BUTTON)
     
     @allure.step('Click on edit button')
     def click_on_edit_button(self):
-        return self.driver.find_element(By.CSS_SELECTOR, self.edit_button_xpath)
+        return self.driver.find_element(*SubjectiveQuestionPageLocators.EDIT_BUTTON)
     
     @allure.step('get question text from existing table')
     def get_text_existing_question(self):
-        return self.driver.find_element(By.CSS_SELECTOR, self.get_question_text_xpath)
+        return self.driver.find_element(*Locators.GET_QUESTION_TEXT)
         
     @allure.step('Firstly, always run login functionality')
     def section_open_of_subjective_question_section(self):
@@ -108,26 +91,26 @@ class SubjectiveQuestion:
         previous_row = len(self.row_count_subjective_question())
         self.click_on_add_question_button()
         if subject:
-            self.dropdown_input(TIME_DURATION, By.ID, self.input_subject_xpath, subject)
+            self.dropdown_input(TIME_DURATION, *SubjectiveQuestionPageLocators.INPUT_SUBJECT, subject)
         if passage:
-            self.dropdown_input(TIME_DURATION, By.ID, self.input_passage_xpath, passage)
+            self.dropdown_input(TIME_DURATION, *SubjectiveQuestionPageLocators.INPUT_PASSAGE, passage)
         self.input_question_title().send_keys(question_title)
         self.input_answer_keys().send_keys(answer_keys)
         self.input_instructions().send_keys(instructions)
         if validation and add_question:
             self.click_on_save_button().click()
             if len(question_title) == LENGTH or len(answer_keys) == LENGTH or len(instructions) == LENGTH:
-                assert self.dynamic_explicit_wait_without_message(TIME_DURATION, By.CLASS_NAME, self.parsley_maxlength_xpath).is_displayed()
+                assert self.dynamic_explicit_wait_without_message(TIME_DURATION, *Locators.PARSLEY_MAXLENGTH).is_displayed()
             else:
-                assert self.dynamic_explicit_wait_without_message(TIME_DURATION, By.CLASS_NAME, self.parsley_required_xpath).is_displayed()
+                assert self.dynamic_explicit_wait_without_message(TIME_DURATION, *Locators.PARSLEY_REQUIRED).is_displayed()
         elif add_question:
             self.click_on_save_button().click()
             if TYPING_TEST in subject:
-                assert self.dynamic_explicit_wait(TIME_DURATION, By.ID, self.display_message_xpath, TYPING_VALIDATION)
+                assert self.dynamic_explicit_wait(TIME_DURATION, *Locators.DISPLAY_MESSAGE, TYPING_VALIDATION)
             elif EXCEL in subject:
-                assert self.dynamic_explicit_wait(TIME_DURATION, By.ID, self.display_message_xpath, EXCEL_VALIDATION)
+                assert self.dynamic_explicit_wait(TIME_DURATION, *Locators.DISPLAY_MESSAGE, EXCEL_VALIDATION)
             else:
-                assert self.dynamic_explicit_wait_without_message(TIME_DURATION, By.ID, self.display_message_xpath).is_displayed()
+                assert self.dynamic_explicit_wait_without_message(TIME_DURATION, *Locators.DISPLAY_MESSAGE).is_displayed()
         else:
             self.click_on_close_button().click()
             new_row = len(self.row_count_subjective_question())
@@ -137,14 +120,14 @@ class SubjectiveQuestion:
         self.section_open_of_subjective_question_section()
         if question_title and subject:
             self.search_by_question_title().send_keys(question_title)
-            self.dropdown_input(TIME_DURATION, By.ID, self.search_by_subject_xpath, subject)
+            self.dropdown_input(TIME_DURATION, *SubjectiveQuestionPageLocators.SEARCH_BY_SUBJECT, subject)
         elif question_title:
             self.search_by_question_title().send_keys(question_title)
         elif subject:
-            self.dropdown_input(TIME_DURATION, By.ID, self.search_by_subject_xpath, subject)
+            self.dropdown_input(TIME_DURATION, *SubjectiveQuestionPageLocators.SEARCH_BY_SUBJECT, subject)
         self.click_on_search_button().click()
         if validation:
-            assert self.dynamic_explicit_wait_without_message(TIME_DURATION, By.ID, self.display_message_xpath).is_displayed()
+            assert self.dynamic_explicit_wait_without_message(TIME_DURATION, *Locators.DISPLAY_MESSAGE).is_displayed()
         else:
             assert len(self.row_count_subjective_question()) > ZERO
             
@@ -154,7 +137,7 @@ class SubjectiveQuestion:
         self.click_on_delete_button().click()
         if accept:
             self.driver.switch_to.alert.accept()
-            assert self.dynamic_explicit_wait_without_message(TIME_DURATION, By.ID, self.display_message_xpath).is_displayed()
+            assert self.dynamic_explicit_wait_without_message(TIME_DURATION, *Locators.DISPLAY_MESSAGE).is_displayed()
         else:
             self.driver.switch_to.alert.dismiss()
             new_row = len(self.row_count_subjective_question())

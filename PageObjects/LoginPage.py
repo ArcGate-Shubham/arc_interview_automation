@@ -1,60 +1,48 @@
 import time
-from selenium.webdriver.common.by import By
+import allure
 
-
+from PageObjects.locators import *
+from Utilities.return_message import *
+from Utilities.constants import *
 class Login:
     def __init__(self, driver):
         self.driver = driver
-        self.fill_username_input_xpath = 'username'
-        self.fill_password_input_xpath = 'password'
-        self.click_on_login_button_xpath = 'login_button'
-        self.display_message_xpath = 'notice'
-        self.click_text_allow_authenticated_user_xpath = 'Allow Authenticated User'
-        self.click_text_add_subject_xpath = 'Add Subject'
-        self.click_text_multiple_image_choice_question_xpath = 'Multiple Image Choice Question'
-        self.click_text_multiple_choice_question_xpath = 'Multiple Choice Question'
-        self.click_text_image_based_multiple_choice_question_xpath = 'Image Based Multiple Choice Questions'
-        self.click_text_subjective_question_xpath = 'Subjective Questions'
-        self.click_text_image_based_subjective_question_xpath = 'Image Based Subjective Questions'
-
+        
     def fill_username_password_input(self, Username, Password):
-        self.driver.find_element(
-            By.NAME, self.fill_username_input_xpath).send_keys(Username)
-        time.sleep(3)
-        self.driver.find_element(
-            By.NAME, self.fill_password_input_xpath).send_keys(Password)
-        time.sleep(3)
-        self.driver.find_element(
-            By.ID, self.click_on_login_button_xpath).click()
+        self.driver.find_element(*LoginPageLocators.INPUT_USERNAME).send_keys(Username)
+        self.driver.find_element(*LoginPageLocators.INPUT_PASSWORD).send_keys(Password)
+        self.driver.find_element(*LoginPageLocators.LOGIN_BUTTON).click()
         time.sleep(3)
 
+    @allure.step('Display success login message')
     def display_successfully_login_message(self):
-        return self.driver.find_element(By.ID, self.display_message_xpath).text
+        assert SUCCESS_LOGIN in self.driver.find_element(*Locators.DISPLAY_MESSAGE).text
 
+    @allure.step('Display invalid login message')
     def display_invalid_crediential_message(self):
-        return self.driver.find_element(By.ID, self.display_message_xpath).text
+        assert INVALID_CREDIENTIAL in self.driver.find_element(*Locators.DISPLAY_MESSAGE).text
 
+    @allure.step('Display login text')
     def display_admin_login_text(self):
-        return self.driver.find_element(By.ID, self.click_on_login_button_xpath).text
+        assert LOGIN in self.driver.find_element(*LoginPageLocators.LOGIN_BUTTON).text
 
     def click_on_allow_authenticated_user_section(self):
-        self.driver.find_element(
-            By.LINK_TEXT, self.click_text_allow_authenticated_user_xpath).click()
+        self.driver.find_element(*LoginPageLocators.CLICK_TEXT_ALLOW_AUTHENTICATED_USER_XPATH).click()
 
     def click_on_add_subject_section(self):
-        return self.driver.find_element(By.LINK_TEXT, self.click_text_add_subject_xpath).click()
+        return self.driver.find_element(*LoginPageLocators.CLICK_TEXT_ADD_SUBJECT_XPATH).click()
 
     def click_on_multiple_image_choice_question_section(self):
-        return self.driver.find_element(By.LINK_TEXT, self.click_text_multiple_image_choice_question_xpath).click()
+        return self.driver.find_element(*LoginPageLocators.CLICK_TEXT_MULTIPLE_IMAGE_CHOICE_QUESTION_XPATH).click()
 
     def click_on_multiple_choice_question_section(self):
-        return self.driver.find_element(By.LINK_TEXT, self.click_text_multiple_choice_question_xpath).click()
+        return self.driver.find_element(*LoginPageLocators.CLICK_TEXT_MULTIPLE_CHOICE_QUESTION_XPATH).click()
 
     def click_on_image_based_multiple_choice_question_section(self):
-        return self.driver.find_element(By.LINK_TEXT, self.click_text_image_based_multiple_choice_question_xpath).click()
+        return self.driver.find_element(*LoginPageLocators.CLICK_TEXT_IMAGE_BASED_MULTIPLE_CHOICE_QUESTION_XPATH).click()
 
     def click_on_subjective_question_section(self):
-        return self.driver.find_element(By.LINK_TEXT, self.click_text_subjective_question_xpath).click()
+        return self.driver.find_element(*LoginPageLocators.CLICK_TEXT_SUBJECTIVE_QUESTION_XPATH).click()
 
     def click_on_image_based_subjective_question_section(self):
-        return self.driver.find_element(By.LINK_TEXT, self.click_text_image_based_subjective_question_xpath).click()
+        return self.driver.find_element(*LoginPageLocators.CLICK_TEXT_IMAGE_BASED_SUBJECTIVE_QUESTION_XPATH).click()

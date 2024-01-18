@@ -1,76 +1,94 @@
+import allure
 import pytest
 
-from Utilities.generate_email import generate_random_string_subject
-
+from Utilities.generate_email import *
+from Utilities.return_message import *
+from Utilities.constants import *
 @pytest.mark.usefixtures("setup_and_teardown")
 class TestSubject:
-    def test_add_new_subject_with_valid_data(self):
-        self.log.getthelogs().info('TEST CASE, test_add_new_subject_with_valid_data')
+    
+    @allure.severity(allure.severity_level.CRITICAL)
+    def test_001(self):
+        self.log.getthelogs().info('TEST CASE, test_001')
         self.subject.fill_the_form_add_new_subject(generate_random_string_subject())
-        self.subject.success_message_for_subject('Subject added successfully', 'Screenshots/test_add_new_subject_with_valid_data.png')
+        self.subject.success_message_for_subject(SUBJECT_ADDED)
     
-    # def test_add_new_subject_without_data(self):
-    #     self.log.getthelogs().info('TEST CASE, test_add_new_subject_without_data')
-    #     self.subject.fill_the_form_add_new_subject('')
-    #     self.subject.validation_message_for_required_subject('Screenshots/test_add_new_subject_without_data.png')
-            
-    # def test_add_new_subject_with_numeric_data(self):
-    #     self.log.getthelogs().info('TEST CASE, test_add_new_subject_with_numeric_data')
-    #     self.subject.fill_the_form_add_new_subject('1234')
-    #     self.subject.validation_message_for_subject('Screenshots/test_add_new_subject_with_numeric_data.png')
+    @allure.severity(allure.severity_level.NORMAL)
+    def test_002(self):
+        self.log.getthelogs().info('TEST CASE, test_002')
+        self.subject.fill_the_form_add_new_subject(BLANK)
+        self.subject.validation_message_for_required_subject()
+    
+    @allure.severity(allure.severity_level.NORMAL)
+    def test_003(self):
+        self.log.getthelogs().info('TEST CASE, test_003')
+        self.subject.fill_the_form_add_new_subject(NUMBER)
+        self.subject.validation_message_for_subject()
 
-    # def test_add_new_subject_with_special_character_data(self):
-    #     self.log.getthelogs().info('TEST CASE, test_add_new_subject_with_special_character_data')
-    #     self.subject.fill_the_form_add_new_subject('####')
-    #     self.subject.validation_message_for_subject('Screenshots/test_add_new_subject_with_special_character_data.png')
+    @allure.severity(allure.severity_level.NORMAL)
+    def test_004(self):
+        self.log.getthelogs().info('TEST CASE, test_004')
+        self.subject.fill_the_form_add_new_subject(HASH_DATA)
+        self.subject.validation_message_for_subject()
     
-    # def test_add_new_subject_with_numeric_data_along_with_string(self):
-    #     self.log.getthelogs().info('TEST CASE, test_add_new_subject_with_numeric_data_along_with_string')
-    #     self.subject.fill_the_form_add_new_subject('shubha111')
-    #     self.subject.validation_message_for_subject('Screenshots/test_add_new_subject_with_numeric_data_along_with_string.png')
+    @allure.severity(allure.severity_level.MINOR)
+    def test_005(self):
+        self.log.getthelogs().info('TEST CASE, test_005')
+        self.subject.fill_the_form_add_new_subject(NAME_WITH_NUMBER)
+        self.subject.validation_message_for_subject()
     
-    # def test_add_new_subject_with_alterat_along_with_string(self):
-    #     self.log.getthelogs().info('TEST CASE, test_add_new_subject_with_alterat_along_with_string')
-    #     self.subject.fill_the_form_add_new_subject('shubha@@@@')
-    #     self.subject.validation_message_for_subject('Screenshots/test_add_new_subject_with_alterat_along_with_string.png')
-            
-    # def test_add_new_subject_with_special_character_along_with_string(self):
-    #     self.log.getthelogs().info('TEST CASE, test_add_new_subject_with_special_character_along_with_string')
-    #     self.subject.fill_the_form_add_new_subject('shubha!!!!')
-    #     self.subject.success_message_for_subject('Subject added successfully', 'Screenshots/test_add_new_subject_with_special_character_along_with_string.png')
-            
-    # def test_add_new_subject_with_add_new_subject_and_click_on_cancel_button(self):
-    #     self.log.getthelogs().info('TEST CASE, test_add_new_subject_with_add_new_subject_and_click_on_cancel_button')
-    #     self.subject.not_save_new_subject_click_on_cancel_button()
+    @allure.severity(allure.severity_level.NORMAL)
+    def test_006(self):
+        self.log.getthelogs().info('TEST CASE, test_006')
+        self.subject.fill_the_form_add_new_subject(NAME_WITH_ATTHERATE)
+        self.subject.validation_message_for_subject()
+    
+    @allure.severity(allure.severity_level.NORMAL)        
+    def test_007(self):
+        self.log.getthelogs().info('TEST CASE, test_007')
+        self.subject.fill_the_form_add_new_subject(NAME_WITH_EXCLAMINATION)
+        self.subject.success_message_for_subject(SUBJECT_ADDED)
+    
+    @allure.severity(allure.severity_level.NORMAL)        
+    def test_008(self):
+        self.log.getthelogs().info('TEST CASE, test_008')
+        self.subject.not_save_new_subject_click_on_cancel_button()
         
-    # def test_successfully_deleted_row_in_the_subject_table(self):
-    #     self.log.getthelogs().info('TEST CASE, test_successfully_deleted_row_in_the_subject_table')
-    #     self.subject.delete_row_in_the_subject_table()
-        
-    # def test_not_deleted_row_from_subject_table(self):
-    #     self.log.getthelogs().info('TEST CASE, test_not_deleted_row_from_subject_table')
-    #     self.subject.not_delete_row_in_subject_table('Screenshots/test_not_deleted_row_from_subject_table.png')
+    @allure.severity(allure.severity_level.NORMAL)    
+    def test_009(self):
+        self.log.getthelogs().info('TEST CASE, test_009')
+        self.subject.delete_row_in_the_subject_table()
+    
+    @allure.severity(allure.severity_level.MINOR)    
+    def test_010(self):
+        self.log.getthelogs().info('TEST CASE, test_010')
+        self.subject.not_delete_row_in_subject_table()
 
-    # def test_existing_data_update_using_edit_button(self):
-    #     self.log.getthelogs().info('TEST CASE, test_existing_data_update_using_edit_button')
-    #     self.subject.update_existing_data_in_the_subject_table_without_change('Screenshots/test_existing_data_update_using_edit_button.png')
-        
-    # def test_click_edit_button_and_then_subject_clear_and_click_save_button(self):
-    #     self.log.getthelogs().info('TEST CASE, test_click_edit_button_and_then_subject_clear_and_click_save_button')
-    #     self.subject.update_existing_subject_click_on_edit_button('')
-    #     self.subject.validation_message_for_required_subject('Screenshots/test_click_edit_button_and_then_subject_clear_and_click_save_button.png')
+    @allure.severity(allure.severity_level.MINOR)
+    def test_011(self):
+        self.log.getthelogs().info('TEST CASE, test_011')
+        self.subject.update_existing_data_in_the_subject_table_without_change()
     
-    # def test_click_edit_button_and_then_subject_clear_and_change_subject_then_click_save_button(self):
-    #     self.log.getthelogs().info('TEST CASE, test_click_edit_button_and_then_subject_clear_and_change_subject_then_click_save_button')
-    #     self.subject.update_existing_subject_click_on_edit_button(generate_random_string_subject())
-    #     self.subject.success_message_for_subject('Subject updated successfully', 'Screenshots/test_click_edit_button_and_then_subject_clear_and_change_subject_then_click_save_button.png')
-            
-    # def test_click_edit_button_and_then_subject_clear_and_change_subject_data_with_number_then_click_save_button(self):
-    #     self.log.getthelogs().info('TEST CASE, test_click_edit_button_and_then_subject_clear_and_change_subject_data_with_number_then_click_save_button')
-    #     self.subject.update_existing_subject_click_on_edit_button('asdfghj1')
-    #     self.subject.validation_message_for_subject('Screenshots/test_click_edit_button_and_then_subject_clear_and_change_subject_data_with_number_then_click_save_button.png')
+    @allure.severity(allure.severity_level.MINOR)    
+    def test_012(self):
+        self.log.getthelogs().info('TEST CASE, test_012')
+        self.subject.update_existing_subject_click_on_edit_button(BLANK)
+        self.subject.validation_message_for_required_subject()
+    
+    @allure.severity(allure.severity_level.NORMAL)
+    def test_013(self):
+        self.log.getthelogs().info('TEST CASE, test_013')
+        self.subject.update_existing_subject_click_on_edit_button(generate_random_string_subject())
+        self.subject.success_message_for_subject(SUBJECT_UPDATED)
+    
+    @allure.severity(allure.severity_level.NORMAL)        
+    def test_014(self):
+        self.log.getthelogs().info('TEST CASE, test_014')
+        self.subject.update_existing_subject_click_on_edit_button(TEXT_WITH_NUMBER)
+        self.subject.validation_message_for_subject()
 
-    # def test_click_edit_button_and_then_subject_clear_and_change_subject_data_with_special_character_then_click_save_button(self):
-    #     self.log.getthelogs().info('TEST CASE, test_click_edit_button_and_then_subject_clear_and_change_subject_data_with_special_character_then_click_save_button')
-    #     self.subject.update_existing_subject_click_on_edit_button('asdfghj@')
-    #     self.subject.validation_message_for_subject('Screenshots/test_click_edit_button_and_then_subject_clear_and_change_subject_data_with_special_character_then_click_save_button.png')
+    @allure.severity(allure.severity_level.NORMAL)
+    def test_015(self):
+        self.log.getthelogs().info('TEST CASE, test_015')
+        self.subject.update_existing_subject_click_on_edit_button(TEXT_WITH_ATTHERATE)
+        self.subject.validation_message_for_subject()
