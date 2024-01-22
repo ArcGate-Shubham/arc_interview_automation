@@ -12,29 +12,6 @@ from Utilities.return_message import *
 class AllowAuthenticatedUser:
     def __init__(self, driver):
         self.driver = driver
-        # self.click_on_add_user_button_xpath = 'addButton'
-        # self.fill_input_username_in_authenticated_user_xpath = 'userSettingUsername'
-        # self.fill_input_email_in_authenticated_user_xpath = 'userSettingEmail'
-        # self.fill_input_roll_in_authenticated_user_xpath = 'userSettingRole'
-        # self.fill_input_status_in_authenticated_user_xpath = 'userSettingStatus'
-        # self.click_on_allow_authenticated_user_save_button_xpath = 'save-button'
-        # self.display_meesage_in_notice_id_on_top_xpath = 'notice'
-        # self.required_validation_for_input_type_xpath = 'parsley-required'
-        # self.click_on_authenticated_user_cancel_button_xpath = 'close-button'
-        # self.pattern_validation_for_input_type_xpath = 'parsley-pattern'
-        # self.search_username_for_authenticated_user_section_xpath = 'id_username'
-        # self.search_email_for_authenticated_user_section_xpath = 'id_email'
-        # self.search_role_for_authenticated_user_section_xpath = 'id_role'
-        # self.search_button_for_authenticated_user_section_xpath = '//input[@value="Search"]'
-        # self.display_username_in_this_table_on_td_xpath = 'td'
-        # self.display_email_in_this_table_on_td_xpath = 'email_column'
-        # self.display_admin_role_in_this_table_on_td_xpath = 'role_column'
-        # self.delete_row_in_table_data_xpath = 'Delete'
-        # self.table_row_count_xpath = 'tbody tr'
-        # self.click_on_edit_button_xpath = 'a.Edit'
-        # self.click_on_close_button_based_on_edit_form_xpath = 'close-button'
-        # self.click_on_edit_button_and_also_select_role_dropdown_xpath = '//select[@id="userSettingRole"]/option[1]'
-        # self.click_on_edit_button_and_also_select_status_dropdown_xpath = '//select[@id="userSettingStatus"]/option[1]'
         
     def click_on_add_user_button(self):
         self.driver.find_element(*AllowAuthenticatedUserPageLocators.ADD_USER_BUTTON).click()
