@@ -1,5 +1,4 @@
 import time
-import configparser
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -8,8 +7,7 @@ from selenium.webdriver.support.ui import Select
 from PageObjects.LoginPage import Login
 from Utilities.logger import logclass
 from Utilities.return_message import *
-config = configparser.ConfigParser()
-config.read("Utilities/input.properties")
+from Utilities.Readconfigurations import *
 
 class MultipleImageChoiceQuestion(logclass):
     def __init__(self, driver):
@@ -108,7 +106,7 @@ class MultipleImageChoiceQuestion(logclass):
 
     def section_open_of_multiple_image_choice_question_section(self):
         login = Login(self.driver)
-        login.fill_username_password_input(config.get("crediential","login_username"), config.get("crediential","login_password"))
+        login.fill_username_password_input(read_configuration("crediential","login_username"), read_configuration("crediential","login_password"))
         login.click_on_multiple_image_choice_question_section()
         
     def add_new_question_multiple_image_choice_question(self):

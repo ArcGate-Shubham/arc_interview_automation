@@ -8,6 +8,7 @@ from Utilities.constants import *
 class TestSubject:
     
     @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.regression
     def test_001(self):
         self.log.getthelogs().info('TEST CASE, test_001')
         self.subject.fill_the_form_add_new_subject(generate_random_string_subject())

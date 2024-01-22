@@ -1,6 +1,5 @@
 import time
 import allure
-import configparser
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -10,8 +9,7 @@ from PageObjects.LoginPage import Login
 from PageObjects.locators import *
 from Utilities.return_message import *
 from Utilities.constants import *
-config = configparser.ConfigParser()
-config.read("Utilities/input.properties")
+from Utilities.Readconfigurations import *
 
 class SubjectiveQuestion:
     def __init__(self, driver):
@@ -83,7 +81,7 @@ class SubjectiveQuestion:
     @allure.step('Firstly, always run login functionality')
     def section_open_of_subjective_question_section(self):
         login = Login(self.driver)
-        login.fill_username_password_input(config.get("crediential","login_username"), config.get("crediential","login_password"))
+        login.fill_username_password_input(read_configuration("crediential","login_username"), read_configuration("crediential","login_password"))
         login.click_on_subjective_question_section()
         
     def add_subjective_question(self, subject, passage, question_title, answer_keys, instructions, add_question, validation):

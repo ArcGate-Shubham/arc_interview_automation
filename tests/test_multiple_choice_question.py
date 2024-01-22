@@ -8,6 +8,7 @@ from Utilities.generate_email import *
 class TestMultipleChoiceQuestion:
     
     @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.regression 
     def test_001(self):
         self.log.getthelogs().info('TEST CASE, test_001')
         self.multiple_choice_question.add_question_multiple_choice_question(HINDI, PASSAGE_VALUE, generate_random_string_subject(), OPTION_A, OPTION_B, OPTION_C, OPTION_D, ADD, BLANK, 'Screenshots/test_001.png')

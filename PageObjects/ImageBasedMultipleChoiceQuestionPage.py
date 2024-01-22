@@ -1,6 +1,5 @@
 import time
 import allure
-import configparser
 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -10,8 +9,7 @@ from PageObjects.locators import *
 from Utilities.return_message import *
 from Utilities.constants import *
 from Utilities.generate_email import *
-config = configparser.ConfigParser()
-config.read("Utilities/input.properties")
+from Utilities.Readconfigurations import *
 
 class ImageBasedMultipleChoiceQuestion:
     def __init__(self, driver):
@@ -99,7 +97,7 @@ class ImageBasedMultipleChoiceQuestion:
     @allure.step('Firstly, always run login functionality')
     def section_open_of_image_based_multiple_choice_question_section(self):
         login = Login(self.driver)
-        login.fill_username_password_input(config.get("crediential","login_username"), config.get("crediential","login_password"))
+        login.fill_username_password_input(read_configuration("crediential","login_username"), read_configuration("crediential","login_password"))
         login.click_on_image_based_multiple_choice_question_section()
         
     def add_image_based_multiple_choice_question(self, subject, question_title, optionA, optionB, optionC, optionD, image, add_question, validation):

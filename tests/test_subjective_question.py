@@ -8,6 +8,7 @@ from Utilities.generate_email import *
 class TestSubjectiveQuestion:
     
     @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.regression
     def test_001(self):
         self.log.getthelogs().info('TEST CASE, test_001')
         self.subjective_question.add_subjective_question(HINDI, PASSAGE_VALUE, generate_random_string_subject(), generate_random_string_subject(), generate_random_string_subject(), ADD, BLANK)

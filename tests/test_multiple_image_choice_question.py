@@ -4,11 +4,12 @@ from Utilities.return_message import *
 
 @pytest.mark.usefixtures("setup_and_teardown")
 class TestMultipleImageChoiceQuestion:
-
+    
     def test_001(self):
         self.log.getthelogs().info('TEST CASE, test_001')
         self.multiple_image_choice_question.add_new_question_multiple_image_choice_question()
 
+    @pytest.mark.regression
     def test_002(self):
         self.log.getthelogs().info('TEST CASE, test_002')
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(QUESTION_MICQ,IMAGE, IMAGE,IMAGE, IMAGE, ADD)

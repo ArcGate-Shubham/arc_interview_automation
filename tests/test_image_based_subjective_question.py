@@ -8,6 +8,7 @@ from Utilities.generate_email import *
 class TestImageBasedSubjectiveQuestion:
     
     @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.regression
     def test_001(self):
         self.log.getthelogs().info('TEST CASE, test_001')
         self.image_based_subjective_question.add_new_image_based_subjective_question(HINDI, generate_random_string_subject(), HINDI, IMAGE, ADD, BLANK)

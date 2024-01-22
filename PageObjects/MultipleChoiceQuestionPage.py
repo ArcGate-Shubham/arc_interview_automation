@@ -1,6 +1,5 @@
 import time
 import allure
-import configparser
 
 from allure_commons.types import AttachmentType
 from selenium.webdriver.common.by import By
@@ -9,8 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from PageObjects.LoginPage import Login
 from Utilities.return_message import *
-config = configparser.ConfigParser()
-config.read("Utilities/input.properties")
+from Utilities.Readconfigurations import *
 
 class MultipleChoiceQuestion:
     def __init__(self, driver):
@@ -134,7 +132,7 @@ class MultipleChoiceQuestion:
     @allure.step('Firstly, always run login functionality')
     def section_open_of_multiple_choice_question_section(self):
         login = Login(self.driver)
-        login.fill_username_password_input(config.get("crediential","login_username"), config.get("crediential","login_password"))
+        login.fill_username_password_input(read_configuration("crediential","login_username"), read_configuration("crediential","login_password"))
         login.click_on_multiple_choice_question_section()
     
     def add_question_multiple_choice_question(self, subject, passage, question_title, optionA, optionB, optionC, optionD, add_question, validation, screenshot):
