@@ -1,6 +1,6 @@
 import time
+import allure
 
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
@@ -12,10 +12,12 @@ from Utilities.return_message import *
 class AllowAuthenticatedUser:
     def __init__(self, driver):
         self.driver = driver
-        
+    
+    @allure.step('Click on add new question button')    
     def click_on_add_user_button(self):
         self.driver.find_element(*AllowAuthenticatedUserPageLocators.ADD_USER_BUTTON).click()
-        
+    
+    @allure.step('Fill allow authentication form')    
     def fill_the_form_allow_authenticated_user(self, Username, Email, Role, Status):
         login = Login(self.driver)
         login.fill_username_password_input(read_configuration("crediential","login_username"), read_configuration("crediential","login_password"))
@@ -38,18 +40,22 @@ class AllowAuthenticatedUser:
         time.sleep(2)
         return username and email and role and status
     
+    @allure.step('Display required validation message') 
     def display_validation_message_yes_or_no(self):
         assert PARSLEY_REQUIRED in self.display_validation_message_for_input_type()
-            
+    
+    @allure.step('Display not arcgate email')        
     def display_arcgate_email_validation_message(self, not_modal):
         if not_modal:
             assert USERNAME_ALREADY in self.display_message_on_top()
         else:
             assert NOT_ARCGATE_EMAIL in self.display_validation_message_for_parsley_pattern()
-            
+    
+    @allure.step('Click on save button')        
     def click_on_authenticated_user_save_button(self):
         self.driver.find_element(*Locators.SAVE_BUTTON).click()
-        
+    
+    @allure.step('Display message')    
     def display_message_on_top(self):
         return self.driver.find_element(*Locators.DISPLAY_MESSAGE).text
     
@@ -59,9 +65,11 @@ class AllowAuthenticatedUser:
     def display_validation_message_for_parsley_pattern(self):
         return self.driver.find_element(*Locators.PARSLEY_PATTERN).text
     
+    @allure.step('Click on cancel button')
     def click_on_authenticated_user_cancel_button(self):
         self.driver.find_element(*Locators.CLOSE_BUTTON).click()
 
+    @allure.step('Search functionality')
     def search_functionality(self, Username, email, role):
         login = Login(self.driver)
         login.fill_username_password_input(read_configuration("crediential","login_username"), read_configuration("crediential","login_password"))
@@ -85,6 +93,7 @@ class AllowAuthenticatedUser:
     def display_no_data_found_validation_in_message(self):
         return self.driver.find_element(*Locators.DISPLAY_MESSAGE).text
     
+    @allure.step('Display email text in table')
     def display_email_in_table(self):
         return self.driver.find_element(*AllowAuthenticatedUserPageLocators.DISPLAY_EMAIL_TABLE).text
     
@@ -121,6 +130,7 @@ class AllowAuthenticatedUser:
         self.driver.find_element(*AllowAuthenticatedUserPageLocators.SEARCH_BUTTON).click()
         time.sleep(2)
         
+    @allure.step('Click on delete button')    
     def click_on_delete_button(self):
         time.sleep(2)
         self.driver.find_element(*Locators.DELETE_BUTTON).click()
@@ -134,7 +144,8 @@ class AllowAuthenticatedUser:
         self.driver.switch_to.alert.accept()
         time.sleep(5)
         assert USER_DELETED in self.display_no_data_found_validation_in_message()
-            
+     
+    @allure.step('Table Row count')        
     def row_count_of_authenticated_user(self):
         return self.driver.find_elements(*Locators.TABLE_ROW_COUNT)
             
@@ -151,10 +162,12 @@ class AllowAuthenticatedUser:
         for new_row_data in self.row_count_of_authenticated_user():
             new_row = new_row + 1
         assert old_row == new_row
-            
+    
+    @allure.step('Click on edit button')        
     def click_on_edit_button_on_table(self):
         self.driver.find_element(*Locators.EDIT_BUTTON).click()
-        
+    
+    @allure.step('Click on close button')    
     def click_of_close_button_for_edit_allow_authentication_form(self):
         time.sleep(2)
         return self.driver.find_element(*Locators.CLOSE_BUTTON)

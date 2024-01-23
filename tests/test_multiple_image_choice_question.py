@@ -1,236 +1,285 @@
 import pytest
+import allure
+
 from Utilities.constants import *
 from Utilities.return_message import *
 
 @pytest.mark.usefixtures("setup_and_teardown")
 class TestMultipleImageChoiceQuestion:
     
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
     def test_001(self):
-        self.log.getthelogs().info('TEST CASE, test_001')
         self.multiple_image_choice_question.add_new_question_multiple_image_choice_question()
 
+    @allure.severity(allure.severity_level.CRITICAL)
     @pytest.mark.regression
     def test_002(self):
-        self.log.getthelogs().info('TEST CASE, test_002')
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(QUESTION_MICQ,IMAGE, IMAGE,IMAGE, IMAGE, ADD)
-        self.multiple_image_choice_question.display_success_message_for_multiple_image_choice_question(QUESTION_ADDED,'Screenshots/test_002.png')
+        self.multiple_image_choice_question.display_success_message_for_multiple_image_choice_question(QUESTION_ADDED)
 
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
     def test_003(self):
-        self.log.getthelogs().info('TEST CASE, test_003')
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(QUESTION_MICQ,BLANK, BLANK,BLANK, BLANK, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_003.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
     def test_004(self):
-        self.log.getthelogs().info('TEST CASE, test_004')
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(QUESTION_MICQ,IMAGE, BLANK,BLANK, BLANK, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_004.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
     def test_005(self):
-        self.log.getthelogs().info('TEST CASE, test_005')
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(QUESTION_MICQ,IMAGE, IMAGE,BLANK, BLANK, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_005.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
     def test_006(self):
-        self.log.getthelogs().info('TEST CASE, test_006')
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(QUESTION_MICQ,IMAGE, IMAGE,IMAGE, BLANK, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_006.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
     def test_007(self):
-        self.log.getthelogs().info('TEST CASE, test_007')
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(BLANK,IMAGE, BLANK,BLANK, BLANK, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_007.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
     def test_008(self):
-        self.log.getthelogs().info('TEST CASE, test_008')
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(BLANK,BLANK, IMAGE,BLANK, BLANK, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_008.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
     def test_009(self):
-        self.log.getthelogs().info('TEST CASE, test_009')
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(BLANK,BLANK, BLANK, IMAGE, BLANK, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_009.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
     def test_010(self):
-        self.log.getthelogs().info('TEST CASE, test_010')
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(BLANK,BLANK, BLANK, BLANK, IMAGE, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_010.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
     def test_011(self):
-        self.log.getthelogs().info('TEST CASE, test_011')
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(QUESTION_MICQ,BLANK, IMAGE, BLANK, BLANK, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_011.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
     def test_012(self):
-        self.log.getthelogs().info('TEST CASE, test_012')
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(QUESTION_MICQ,BLANK, BLANK, IMAGE, BLANK, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_012.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
     def test_013(self):
-        self.log.getthelogs().info('TEST CASE, test_013')
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(QUESTION_MICQ,BLANK, BLANK, BLANK, IMAGE, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_013.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
-    def test_014(self):
-        self.log.getthelogs().info('TEST CASE, test_014')     
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
+    def test_014(self):     
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(BLANK,IMAGE, IMAGE, BLANK, BLANK, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_014.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
-    def test_015(self):
-        self.log.getthelogs().info('TEST CASE, test_015')      
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
+    def test_015(self): 
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(BLANK,IMAGE, BLANK, IMAGE, BLANK, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_015.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
-    def test_016(self):
-        self.log.getthelogs().info('TEST CASE, test_016')       
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
+    def test_016(self):      
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(BLANK,IMAGE, BLANK, BLANK, IMAGE, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_016.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
-    def test_017(self):
-        self.log.getthelogs().info('TEST CASE, test_017')     
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
+    def test_017(self):    
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(BLANK,BLANK, IMAGE, BLANK, IMAGE, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_017.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
-    def test_018(self):
-        self.log.getthelogs().info('TEST CASE, test_018')      
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
+    def test_018(self):      
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(BLANK,BLANK, BLANK, IMAGE, IMAGE, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_018.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
-    def test_019(self):
-        self.log.getthelogs().info('TEST CASE, test_019')       
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
+    def test_019(self):    
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(QUESTION_MICQ, IMAGE, BLANK,IMAGE,BLANK, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_019.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
-    def test_020(self):
-        self.log.getthelogs().info('TEST CASE, test_020')    
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
+    def test_020(self):    
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(QUESTION_MICQ, IMAGE, BLANK,BLANK,IMAGE, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_020.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
-    def test_021(self):
-        self.log.getthelogs().info('TEST CASE, test_021')        
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
+    def test_021(self):       
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(QUESTION_MICQ, BLANK, IMAGE,BLANK,IMAGE, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_021.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
-    def test_022(self):
-        self.log.getthelogs().info('TEST CASE, test_022')        
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
+    def test_022(self):        
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(QUESTION_MICQ, BLANK, BLANK,IMAGE,IMAGE, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_022.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
-    def test_023(self):
-        self.log.getthelogs().info('TEST CASE, test_023')        
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
+    def test_023(self):        
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(BLANK, IMAGE, BLANK,IMAGE,IMAGE, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_023.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
-    def test_024(self):
-        self.log.getthelogs().info('TEST CASE, test_024')        
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
+    def test_024(self):       
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(BLANK, BLANK, IMAGE,IMAGE,IMAGE, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_024.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
-    def test_025(self):
-        self.log.getthelogs().info('TEST CASE, test_025')        
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
+    def test_025(self):       
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(QUESTION_MICQ, BLANK, IMAGE,IMAGE,IMAGE, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_025.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
     def test_026(self):
-        self.log.getthelogs().info('TEST CASE, test_026')
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(BLANK, IMAGE, IMAGE,IMAGE,IMAGE, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_026.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
 
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
     def test_027(self):
-        self.log.getthelogs().info('TEST CASE, test_027')
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(QUESTION_MICQ, BLANK, IMAGE,IMAGE,IMAGE, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_027.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
     
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
     def test_028(self):
-        self.log.getthelogs().info('TEST CASE, test_028')
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(QUESTION_MICQ, IMAGE, BLANK,IMAGE,IMAGE, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_028.png')
+        self.multiple_image_choice_question.display_validation_messsage_required()
     
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke
     def test_029(self):
-        self.log.getthelogs().info('TEST CASE, test_029')
         self.multiple_image_choice_question.add_new_question_with_all_valid_input(QUESTION_MICQ, IMAGE, IMAGE,BLANK,IMAGE, ADD)
-        self.multiple_image_choice_question.display_validation_messsage_required('Screenshots/test_029.png')
-        
+        self.multiple_image_choice_question.display_validation_messsage_required()
+    
+    @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.regression    
     def test_030(self):
-        self.log.getthelogs().info('TEST CASE, test_030')
         self.multiple_image_choice_question.search_functionality_for_multiple_image_choice_question(SEARCH_QUESTION_MICQ, BLANK)
-        self.multiple_image_choice_question.search_after_row_count('Screenshots/test_030.png')
-        
+        self.multiple_image_choice_question.search_after_row_count()
+    
+    @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.regression    
     def test_031(self):
-        self.log.getthelogs().info('TEST CASE, test_031')
         self.multiple_image_choice_question.search_functionality_for_multiple_image_choice_question(BLANK, HINDI)
-        self.multiple_image_choice_question.search_after_row_count('Screenshots/test_031.png')
+        self.multiple_image_choice_question.search_after_row_count()
     
+    @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.regression
     def test_032(self):
-        self.log.getthelogs().info('TEST CASE, test_032')
         self.multiple_image_choice_question.search_functionality_for_multiple_image_choice_question(SEARCH_QUESTION_MICQ, HINDI)
-        self.multiple_image_choice_question.search_after_row_count('Screenshots/test_032.png')
+        self.multiple_image_choice_question.search_after_row_count()
     
+    @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.regression
     def test_033(self):
-        self.log.getthelogs().info('TEST CASE, test_033')
         self.multiple_image_choice_question.search_functionality_for_multiple_image_choice_question(BLANK, BLANK)
-        self.multiple_image_choice_question.search_after_row_count('Screenshots/test_033.png')
+        self.multiple_image_choice_question.search_after_row_count()
     
+    @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.regression
     def test_034(self):
-        self.log.getthelogs().info('TEST CASE, test_034')
         self.multiple_image_choice_question.search_functionality_for_multiple_image_choice_question(WRONG_SEARCH, BLANK)
-        self.multiple_image_choice_question.display_success_message_for_multiple_image_choice_question(NO_DATA,'Screenshots/test_034.png')
+        self.multiple_image_choice_question.display_success_message_for_multiple_image_choice_question(NO_DATA)
     
+    @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.regression
     def test_035(self):
-        self.log.getthelogs().info('TEST CASE, test_035')
         self.multiple_image_choice_question.search_functionality_for_multiple_image_choice_question(BLANK, MATHS)
-        self.multiple_image_choice_question.display_success_message_for_multiple_image_choice_question(NO_DATA,'Screenshots/test_035.png')
+        self.multiple_image_choice_question.display_success_message_for_multiple_image_choice_question(NO_DATA)
 
+    @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.regression
     def test_036(self):
-        self.log.getthelogs().info('TEST CASE, test_036')
         self.multiple_image_choice_question.search_functionality_for_multiple_image_choice_question(SEARCH_QUESTION_MICQ, MATHS)
-        self.multiple_image_choice_question.display_success_message_for_multiple_image_choice_question(NO_DATA,'Screenshots/test_036.png')
-        
-    def test_037(self):
-        self.log.getthelogs().info('TEST CASE, test_037')
-        self.multiple_image_choice_question.search_functionality_for_multiple_image_choice_question(THAR, HINDI)
-        self.multiple_image_choice_question.display_success_message_for_multiple_image_choice_question(NO_DATA,'Screenshots/test_037.png')
-        
-    def test_038(self):
-        self.log.getthelogs().info('TEST CASE, test_038')
-        self.multiple_image_choice_question.search_functionality_for_multiple_image_choice_question(CASCSA, MATHS)
-        self.multiple_image_choice_question.display_success_message_for_multiple_image_choice_question(NO_DATA,'Screenshots/test_038.png')
-        
-    def test_039(self):
-        self.log.getthelogs().info('TEST CASE, test_039')
-        self.multiple_image_choice_question.delete_row_in_existing_table(BLANK,'Screenshots/test_039.png' )
-        
-    def test_040(self):
-        self.log.getthelogs().info('TEST CASE, test_040')
-        self.multiple_image_choice_question.delete_row_in_existing_table(ACCEPT,'Screenshots/test_040.png' )
-        
-    def test_041(self):
-        self.log.getthelogs().info('TEST CASE, test_041')
-        self.multiple_image_choice_question.edit_row_in_existing_table(CLOSE_BUTTON,BLANK,BLANK,'Screenshots/test_041.png')
-        
-    def test_042(self):
-        self.log.getthelogs().info('TEST CASE, test_042')
-        self.multiple_image_choice_question.edit_row_in_existing_table(BLANK,BLANK,BLANK,'Screenshots/test_042.png')
-        
-    def test_043(self):
-        self.log.getthelogs().info('TEST CASE, test_043')
-        self.multiple_image_choice_question.edit_row_in_existing_table(BLANK,CLEAR_QUESTION,BLANK,'Screenshots/test_043.png')
+        self.multiple_image_choice_question.display_success_message_for_multiple_image_choice_question(NO_DATA)
     
+    @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.regression    
+    def test_037(self):
+        self.multiple_image_choice_question.search_functionality_for_multiple_image_choice_question(THAR, HINDI)
+        self.multiple_image_choice_question.display_success_message_for_multiple_image_choice_question(NO_DATA)
+    
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.regression    
+    def test_038(self):
+        self.multiple_image_choice_question.search_functionality_for_multiple_image_choice_question(CASCSA, MATHS)
+        self.multiple_image_choice_question.display_success_message_for_multiple_image_choice_question(NO_DATA)
+    
+    @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.regression    
+    def test_039(self):
+        self.multiple_image_choice_question.delete_row_in_existing_table(BLANK)
+    
+    @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.regression    
+    def test_040(self):
+        self.multiple_image_choice_question.delete_row_in_existing_table(ACCEPT)
+    
+    @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.smoke    
+    def test_041(self):
+        self.multiple_image_choice_question.edit_row_in_existing_table(CLOSE_BUTTON,BLANK,BLANK)
+    
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke     
+    def test_042(self):
+        self.multiple_image_choice_question.edit_row_in_existing_table(BLANK,BLANK,BLANK)
+    
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke     
+    def test_043(self):
+        self.multiple_image_choice_question.edit_row_in_existing_table(BLANK,CLEAR_QUESTION,BLANK)
+    
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke 
     def test_044(self):
-        self.log.getthelogs().info('TEST CASE, test_044')
-        self.multiple_image_choice_question.edit_row_in_existing_table(BLANK,BLANK,CLEAR_SUBJECT,'Screenshots/test_044.png')
-        
+        self.multiple_image_choice_question.edit_row_in_existing_table(BLANK,BLANK,CLEAR_SUBJECT)
+    
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke     
     def test_045(self):
-        self.log.getthelogs().info('TEST CASE, test_045')
-        self.multiple_image_choice_question.edit_row_in_existing_table(BLANK,CLEAR_QUESTION,CLEAR_SUBJECT,'Screenshots/test_045.png')
-        
+        self.multiple_image_choice_question.edit_row_in_existing_table(BLANK,CLEAR_QUESTION,CLEAR_SUBJECT)
+    
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.smoke 
     def test_046(self):
-        self.log.getthelogs().info('TEST CASE, test_046')
-        self.multiple_image_choice_question.edit_question_of_existing_table_using_change_question(UPDATED_QUESTION_MICQ, BLANK , 'Screenshots/test_046.png')
-        
+        self.multiple_image_choice_question.edit_question_of_existing_table_using_change_question(UPDATED_QUESTION_MICQ, BLANK )
+    
+    @allure.severity(allure.severity_level.MINOR)
+    @pytest.mark.smoke     
     def test_047(self):
-        self.log.getthelogs().info('TEST CASE, test_047')
-        self.multiple_image_choice_question.edit_question_of_existing_table_using_change_question(BLANK, HINDI , 'Screenshots/test_047.png')
-        
+        self.multiple_image_choice_question.edit_question_of_existing_table_using_change_question(BLANK, HINDI)
+    
+    @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.regression     
     def test_048(self):
-        self.log.getthelogs().info('TEST CASE, test_048')
-        self.multiple_image_choice_question.edit_question_of_existing_table_using_change_question(UPDATED_QUESTION_MICQ , HINDI , 'Screenshots/test_048.png')
+        self.multiple_image_choice_question.edit_question_of_existing_table_using_change_question(UPDATED_QUESTION_MICQ, HINDI)

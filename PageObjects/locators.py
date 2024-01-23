@@ -79,3 +79,28 @@ class AllowAuthenticatedUserPageLocators:
     DISPLAY_ROLE_TABLE = (By.ID, 'role_column')
     CLICK_EDIT_BUTTON_SELECT_ROLE_DROPDOWN = (By.XPATH, '//select[@id="userSettingRole"]/option[1]')
     CLICK_EDIT_BUTTON_SELECT_STATUS_DROPDOWN = (By.XPATH, '//select[@id="userSettingStatus"]/option[1]')
+
+class MultipleChoiceQuestionPageLocators:
+    INPUT_SUBJECT = (By.ID, 'MCQ_subject')
+    INPUT_PASSAGE = (By.ID, 'MCQ_passage')
+    INPUT_QUESTION_TITLE = (By.ID, 'MCQ_title')
+    INPUT_OPTION_A = (By.ID, 'MCQ_optionA')
+    INPUT_OPTION_B = (By.ID, 'MCQ_optionB')
+    INPUT_OPTION_C = (By.ID, 'MCQ_optionC')
+    INPUT_OPTION_D = (By.ID, 'MCQ_optionD')
+    DELETE_BUTTON = (By.CLASS_NAME, 'btn-danger')
+    SEARCH_BY_QUESTION_TITLE = (By.ID, 'MCQ_title_search')
+    SEARCH_BY_SUBJECT = (By.ID, 'MCQ_subject_search')
+    EDIT_BUTTON = (By.CSS_SELECTOR, 'a.edit_mcq')
+    
+class MultipleImageChoiceQuestionPageLocators:
+    INPUT_QUESTION_TITLE = (By.ID, 'MICQ_title')
+    INPUT_SUBJECT = (By.XPATH, '//select[@id="MICQ_subject"]/option[5]')
+    INPUT_OPTION_A = (By.ID, 'MICQ_optionA')
+    INPUT_OPTION_B = (By.ID, 'MICQ_optionB')
+    INPUT_OPTION_C = (By.ID, 'MICQ_optionC')
+    INPUT_OPTION_D = (By.ID, 'MICQ_optionD')
+    CHECKED_ON_CORRECT_OPTION = (By.ID, 'chkboxOption1')
+    GET_QUESTION_TEXT = (By.XPATH, '//*[@id="demo"]/tr[1]/td[1]')
+    CLICK_EDIT_BUTTON_SELECT_SUBJECT_DROPDOWN = (By.XPATH, '//select[@id="MICQ_subject"]/option[1]')
+    UPDATE_INPUT_SUBJECT = (By.XPATH, '//select[@id="MICQ_subject"]/option[6]')
