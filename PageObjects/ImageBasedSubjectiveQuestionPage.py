@@ -1,14 +1,12 @@
 import time
 import allure
-import configparser
 
 from PageObjects.LoginPage import Login
+from PageObjects.locators import *
 from Utilities.return_message import *
 from Utilities.constants import *
 from Utilities.generate_email import *
-from PageObjects.locators import *
-config = configparser.ConfigParser()
-config.read("Utilities/input.properties")
+from Utilities.Readconfigurations import *
 
 class ImageBasedSubjectiveQuestion:
     def __init__(self, driver):
@@ -17,7 +15,7 @@ class ImageBasedSubjectiveQuestion:
     @allure.step('Firstly, always run login functionality')
     def section_open_of_image_based_subjective_question_section(self):
         login = Login(self.driver)
-        login.fill_username_password_input(config.get("crediential","login_username"), config.get("crediential","login_password"))
+        login.fill_username_password_input(read_configuration("crediential","login_username"), read_configuration("crediential","login_password"))
         login.click_on_image_based_subjective_question_section()
         
     @allure.step('Click on new question button')    

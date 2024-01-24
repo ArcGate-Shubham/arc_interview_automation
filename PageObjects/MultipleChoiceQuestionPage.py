@@ -1,52 +1,28 @@
 import time
 import allure
-import configparser
 
-from allure_commons.types import AttachmentType
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from PageObjects.LoginPage import Login
+from PageObjects.locators import *
 from Utilities.return_message import *
-config = configparser.ConfigParser()
-config.read("Utilities/input.properties")
+from Utilities.Readconfigurations import *
+from Utilities.constants import *
 
 class MultipleChoiceQuestion:
     def __init__(self, driver):
         self.driver = driver
-        self.add_multiple_choice_question_button_xpath = 'add_mcq'
-        self.input_subject_xpath = '//select[@id="MCQ_subject"]/option[5]'
-        self.subject_input_xpath = 'MCQ_subject'
-        self.passage_input_xpath = 'MCQ_passage'
-        self.question_title_xpath = 'MCQ_title'
-        self.optionA_xpath = 'MCQ_optionA'
-        self.optionB_xpath = 'MCQ_optionB'
-        self.optionC_xpath = 'MCQ_optionC'
-        self.optionD_xpath = 'MCQ_optionD'
-        self.save_button_xpath = 'add_question_btn'
-        self.click_on_right_answer_xpath = 'chkboxOption2'
-        self.cancel_button_xpath = 'close-dialoge'
-        self.display_message_xpath = 'notice'
-        self.row_count_xpath = 'tbody#demo tr'
-        self.parsley_required_validation_xpath = 'parsley-required'
-        self.parsley_maxlength_validation_xpath = 'li.parsley-maxlength'
-        self.click_on_delete_button_xpath = 'btn-danger'
-        self.search_for_question_title_xpath = 'MCQ_title_search'
-        self.search_for_subject_xpath = 'MCQ_subject_search'
-        self.click_on_search_button_xpath = 'Search'
-        self.click_on_edit_button_xpath = 'a.edit_mcq'
-        self.get_question_text_xpath = 'td h5'
      
     @allure.step('click on add multiple choice question')    
     def add_multiple_choice_question_button(self):
         time.sleep(2)
-        self.driver.find_element(By.ID, self.add_multiple_choice_question_button_xpath).click()
+        self.driver.find_element(*Locators.ADD_NEW_QUESTION_BUTTON).click()
         
     def input_subject(self, subject):
         time.sleep(2)
         wait = WebDriverWait(self.driver, 10)
-        select = wait.until(EC.presence_of_element_located((By.ID, self.subject_input_xpath)))
+        select = wait.until(EC.presence_of_element_located((MultipleChoiceQuestionPageLocators.INPUT_SUBJECT)))
         select = Select(select)
         subject = select.select_by_visible_text(subject)
         return subject
@@ -54,90 +30,90 @@ class MultipleChoiceQuestion:
     def input_passage(self, passage):
         time.sleep(2)
         wait = WebDriverWait(self.driver, 10)
-        select = wait.until(EC.presence_of_element_located((By.ID, self.passage_input_xpath)))
+        select = wait.until(EC.presence_of_element_located((MultipleChoiceQuestionPageLocators.INPUT_PASSAGE)))
         select = Select(select)
         passage = select.select_by_visible_text(passage)
         return passage
     
     def input_question_title(self):
-        return self.driver.find_element(By.ID, self.question_title_xpath)
+        return self.driver.find_element(*MultipleChoiceQuestionPageLocators.INPUT_QUESTION_TITLE)
     
     def input_optionA(self):
-        return self.driver.find_element(By.ID, self.optionA_xpath)
+        return self.driver.find_element(*MultipleChoiceQuestionPageLocators.INPUT_OPTION_A)
     
     def input_optionB(self):
-        return self.driver.find_element(By.ID, self.optionB_xpath)
+        return self.driver.find_element(*MultipleChoiceQuestionPageLocators.INPUT_OPTION_B)
     
     def input_optionC(self):
-        return self.driver.find_element(By.ID, self.optionC_xpath)
+        return self.driver.find_element(*MultipleChoiceQuestionPageLocators.INPUT_OPTION_C)
     
     def input_optionD(self):
-        return self.driver.find_element(By.ID, self.optionD_xpath)
+        return self.driver.find_element(*MultipleChoiceQuestionPageLocators.INPUT_OPTION_D)
     
     @allure.step('Fill all detail of multiple choice question form after that click on save button')
     def click_on_save_button(self):
-        self.driver.find_element(By.ID, self.save_button_xpath).click()
+        self.driver.find_element(*SubjectiveQuestionPageLocators.SAVE_BUTTON).click()
     
     @allure.step('Checked on correct answer check box of muliple choice question options')    
     def click_on_right_answer_button(self):
-        self.driver.find_element(By.ID, self.click_on_right_answer_xpath).click()
+        self.driver.find_element(*ImageBasedMultipleChoiceQuestionPageLocators.CHECKED_ON_CORRECT_OPTION).click()
     
     @allure.step('Click on close button')    
     def click_on_close_button(self):
-        self.driver.find_element(By.ID, self.cancel_button_xpath).click()
+        self.driver.find_element(*SubjectiveQuestionPageLocators.CLOSE_BUTTON).click()
     
     @allure.step('Display message of response')    
     def display_message_section(self):
-        return self.driver.find_element(By.ID, self.display_message_xpath)
+        return self.driver.find_element(*Locators.DISPLAY_MESSAGE)
     
     @allure.step('Row count of multiple choice question')
     def row_count_multiple_choice_question(self):
-        return self.driver.find_elements(By.CSS_SELECTOR, self.row_count_xpath)
+        return self.driver.find_elements(*Locators.TABLE_ROW_COUNT)
     
     @allure.step('Display required validation message')
     def required_validation(self):
-        return self.driver.find_element(By.CLASS_NAME, self.parsley_required_validation_xpath)
+        return self.driver.find_element(*Locators.PARSLEY_REQUIRED)
     
     @allure.step('Maxlength is 500 only')
     def maxlength_validation(self):
-        return self.driver.find_element(By.CSS_SELECTOR, self.parsley_maxlength_validation_xpath)
+        return self.driver.find_element(*Locators.PARSLEY_MAXLENGTH)
     
     @allure.step('click on delete button')
     def click_on_delete_button(self):
         time.sleep(2)
-        self.driver.find_element(By.CLASS_NAME, self.click_on_delete_button_xpath).click()
+        self.driver.find_element(*MultipleChoiceQuestionPageLocators.DELETE_BUTTON).click()
         
     @allure.step('search by question_title')    
     def search_for_question_title(self):
-        return self.driver.find_element(By.ID, self.search_for_question_title_xpath)
+        return self.driver.find_element(*MultipleChoiceQuestionPageLocators.SEARCH_BY_QUESTION_TITLE)
     
     @allure.step('search by subject')
     def search_for_subject(self, subject):
         wait = WebDriverWait(self.driver, 10)
-        select = wait.until(EC.presence_of_element_located((By.ID, self.search_for_subject_xpath)))
+        select = wait.until(EC.presence_of_element_located((MultipleChoiceQuestionPageLocators.SEARCH_BY_SUBJECT)))
         select = Select(select)
         subject = select.select_by_visible_text(subject)
         return subject
     
     @allure.step('click on search button')
     def click_on_search_button(self):
-        return self.driver.find_element(By.ID, self.click_on_search_button_xpath).click()
+        return self.driver.find_element(*SubjectiveQuestionPageLocators.SEARCH_BUTTON).click()
     
     @allure.step('click on edit button')
     def click_on_edit_button(self):
-        return self.driver.find_element(By.CSS_SELECTOR, self.click_on_edit_button_xpath).click()
+        return self.driver.find_element(*MultipleChoiceQuestionPageLocators.EDIT_BUTTON).click()
     
     @allure.step('get existing question text')
     def get_text_of_questions(self):
-        return self.driver.find_element(By.CSS_SELECTOR, self.get_question_text_xpath).text
+        return self.driver.find_element(*ImageBasedMultipleChoiceQuestionPageLocators.GET_QUESTION_TEXT).text
         
     @allure.step('Firstly, always run login functionality')
     def section_open_of_multiple_choice_question_section(self):
         login = Login(self.driver)
-        login.fill_username_password_input(config.get("crediential","login_username"), config.get("crediential","login_password"))
+        login.fill_username_password_input(read_configuration("crediential","login_username"), read_configuration("crediential","login_password"))
         login.click_on_multiple_choice_question_section()
     
-    def add_question_multiple_choice_question(self, subject, passage, question_title, optionA, optionB, optionC, optionD, add_question, validation, screenshot):
+    def add_question_multiple_choice_question(self, subject, passage, question_title, optionA, optionB, optionC, optionD, add_question, validation):
         self.section_open_of_multiple_choice_question_section()
         previous_row_length = len(self.row_count_multiple_choice_question())
         self.add_multiple_choice_question_button()
@@ -161,30 +137,16 @@ class MultipleChoiceQuestion:
         if validation and add_question:
             self.click_on_save_button()
             time.sleep(2)
-            if PARSLEY_REQUIRED in self.required_validation().text:
-                assert True
-            else:
-                allure.attach(self.driver.get_screenshot_as_png(), name=screenshot, attachment_type=AttachmentType.PNG)
-                assert False
+            assert PARSLEY_REQUIRED in self.required_validation().text
         elif add_question:
             self.click_on_save_button()            
-            try:
-                WebDriverWait(self.driver, 2).until(EC.text_to_be_present_in_element((By.ID, self.display_message_xpath), QUESTION_ADDED))
-                assert True
-            except Exception as e:
-                allure.attach(self.driver.get_screenshot_as_png(), name=screenshot, attachment_type=AttachmentType.PNG)
-                assert False
+            assert WebDriverWait(self.driver, 2).until(EC.text_to_be_present_in_element((Locators.DISPLAY_MESSAGE), QUESTION_ADDED))
         else:
             self.click_on_close_button()
             new_row_length = len(self.row_count_multiple_choice_question())
-            if previous_row_length == new_row_length:
-                assert True
-            else:
-                allure.attach(self.driver.get_screenshot_as_png(), name=screenshot, attachment_type=AttachmentType.PNG)
-                self.driver.save_screenshot(screenshot)
-                assert False
+            assert previous_row_length == new_row_length
 
-    def add_question_multiple_choice_question_with_maxlength_validation(self, subject, passage, question_title, optionA, optionB, optionC, optionD, add_question, validation, screenshot):
+    def add_question_multiple_choice_question_with_maxlength_validation(self, subject, passage, question_title, optionA, optionB, optionC, optionD, add_question, validation):
         self.section_open_of_multiple_choice_question_section()
         self.add_multiple_choice_question_button()
         self.input_subject(subject)
@@ -197,31 +159,19 @@ class MultipleChoiceQuestion:
         self.click_on_right_answer_button()
         if validation and add_question:
             self.click_on_save_button()
-            if self.maxlength_validation().is_displayed():
-                assert True
-            else:
-                allure.attach(self.driver.get_screenshot_as_png(), name=screenshot, attachment_type=AttachmentType.PNG)
-                assert False
+            assert self.maxlength_validation().is_displayed()
         
-    def delete_row_in_existing_table(self, accept, screenshot):
+    def delete_row_in_existing_table(self, accept):
         self.section_open_of_multiple_choice_question_section()
         previous_row_length = len(self.row_count_multiple_choice_question())
         self.click_on_delete_button()
         if accept:
             self.driver.switch_to.alert.accept()
-            if self.display_message_section().is_displayed():
-                assert True
-            else:
-                allure.attach(self.driver.get_screenshot_as_png(), name=screenshot, attachment_type=AttachmentType.PNG)
-                assert False
+            assert self.display_message_section().is_displayed()
         else:
             self.driver.switch_to.alert.dismiss()
             new_row_length = len(self.row_count_multiple_choice_question())
-            if previous_row_length == new_row_length:
-                assert True
-            else:
-                allure.attach(self.driver.get_screenshot_as_png(), name=screenshot, attachment_type=AttachmentType.PNG)
-                assert False
+            assert previous_row_length == new_row_length
                 
     def search_functionality(self, question_title, subject):
         self.section_open_of_multiple_choice_question_section()
@@ -234,34 +184,22 @@ class MultipleChoiceQuestion:
             self.search_for_subject(subject)
         self.click_on_search_button()
         
-    def row_count_table(self, screenshot):
-        if len(self.row_count_multiple_choice_question()) > 0:
-            assert True
-        else:
-            allure.attach(self.driver.get_screenshot_as_png(), name=screenshot, attachment_type=AttachmentType.PNG)
-            assert False
+    def row_count_table(self):
+        assert len(self.row_count_multiple_choice_question()) > ZERO
             
-    def no_data_found_validation(self, screenshot):
-        if self.display_message_section().is_displayed():
-            assert True
-        else:
-            allure.attach(self.driver.get_screenshot_as_png(), name=screenshot, attachment_type=AttachmentType.PNG)
-            assert False
+    def no_data_found_validation(self):
+        assert self.display_message_section().is_displayed()
 
-    def edit_row_of_existing_table(self, screenshot):
+    def edit_row_of_existing_table(self):
         self.section_open_of_multiple_choice_question_section()
         previous_text = self.get_text_of_questions()
         self.click_on_edit_button()
         time.sleep(2)
         self.click_on_close_button()
         new_text = self.get_text_of_questions()
-        if previous_text == new_text:
-            assert True
-        else:
-            allure.attach(self.driver.get_screenshot_as_png(), name=screenshot, attachment_type=AttachmentType.PNG)
-            assert False
+        assert previous_text == new_text
             
-    def same_question_gives_on_presence_on_table(self, subject, passage, question_title, optionA, optionB, optionC, optionD, screenshot):
+    def same_question_gives_on_presence_on_table(self, subject, passage, question_title, optionA, optionB, optionC, optionD):
         self.section_open_of_multiple_choice_question_section()
         self.add_multiple_choice_question_button()
         self.input_subject(subject)
@@ -274,4 +212,4 @@ class MultipleChoiceQuestion:
         self.click_on_right_answer_button()
         self.click_on_save_button()
         time.sleep(2)
-        assert QUESTION_UNIQUE in self.display_message_section().text, allure.attach(self.driver.get_screenshot_as_png(), name=screenshot, attachment_type=AttachmentType.PNG)
+        assert QUESTION_UNIQUE in self.display_message_section().text

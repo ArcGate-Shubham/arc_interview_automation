@@ -1,5 +1,4 @@
 import pytest
-import configparser
 import allure
 
 from allure_commons.types import AttachmentType
@@ -15,9 +14,7 @@ from PageObjects.ImageBasedSubjectiveQuestionPage import ImageBasedSubjectiveQue
 from Utilities.logger import logclass
 from Utilities.constants import *
 from Utilities.generate_email import *
-driver = None
-config = configparser.ConfigParser()
-config.read("Utilities/input.properties")
+from Utilities.Readconfigurations import *
 
 
 def pytest_addoption(parser):
@@ -33,7 +30,8 @@ def setup_and_teardown(request):
     elif browser == "firefox":
         driver = webdriver.Firefox()
     driver.maximize_window()
-    driver.get(config.get("Url", "base_url"))
+    url = read_configuration("Url", "base_url")
+    driver.get(url)
     request.cls.driver = driver
     request.cls.log = logclass(driver)
     request.cls.image_based_subjective_question = ImageBasedSubjectiveQuestion(request.cls.driver)
